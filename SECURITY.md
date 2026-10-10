@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-Currently, only the latest active branch of **Charger Diana** is supported with security updates. We do not provide long-term support (LTS) for older, unmaintained forks or alpha builds.
+Currently, only the latest active branch of **Charger Diana** is supported. We do not provide long-term support (LTS) for older, unmaintained forks or alpha builds.
 
 | Version | Supported          |
 | ------- | ------------------ |
@@ -11,22 +11,17 @@ Currently, only the latest active branch of **Charger Diana** is supported with 
 
 ## Reporting a Vulnerability
 
-Security is a core priority for our engineering team. If you discover a security vulnerability within the Charger Diana repository (e.g., remote code execution via malformed save files, malicious dependency injections, or sensitive data leaks), please follow this responsible disclosure process.
+As a single-player offline game, our security focus is primarily on preventing game-breaking crashes through save file tampering, engine-level exploits, or malicious code in dependencies. 
 
-### Disclosure Process
+If you discover a vulnerability or a critical exploit within the Charger Diana repository, please follow this disclosure process:
 
-1. **Do not open a public issue.** Publicly disclosing a vulnerability before a patch is available puts our users at risk.
+1. **Do not open a public issue.** Publicly disclosing a vulnerability before it is fixed can be harmful.
 2. Please email your findings directly to the lead maintainer at **maulanaferdi0678@gmail.com**.
 3. Include the following information in your report:
-   - A detailed description of the vulnerability and its potential impact.
+   - A description of the issue and its potential impact.
    - Step-by-step instructions to reproduce the issue.
-   - Any proof-of-concept (PoC) code or scripts, if applicable.
    - Potential mitigation strategies, if known.
 
-### Response Timeline
+We aim to acknowledge receipt of your vulnerability report within 48 hours and will work to patch it in the next update.
 
-- We will acknowledge receipt of your vulnerability report within **48 hours**.
-- We aim to provide a status update or an initial assessment within **5 business days**.
-- Once the issue is resolved, we will publish a security advisory and credit you for the discovery (unless you prefer to remain anonymous).
-
-Thank you for helping keep Charger Diana and the open-source community safe and secure.
+Thank you for helping keep Charger Diana safe and stable.

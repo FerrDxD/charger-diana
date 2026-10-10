@@ -2,21 +2,25 @@
 
 [![Build Status](https://img.shields.io/badge/build-passing-success?style=for-the-badge)](https://github.com/FerrDxD/charger-diana)
 [![Godot Engine](https://img.shields.io/badge/Godot_4.x-.NET_C%23-blue?style=for-the-badge&logo=godotengine)](https://godotengine.org)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey?style=for-the-badge)](#)
 
-**Charger Diana** is a lightweight, first-person horror game developed with Godot 4.x (C# / .NET). Designed with a strict focus on performance, the project boasts an optimized architecture targeting low-end hardware (e.g., Intel Celeron, 8GB RAM, iGPU) while delivering a chilling, PS1-era atmospheric experience.
+
+**Charger Diana** is a short (25-35 minutes) first-person 3D horror game developed with Godot 4.x (C# / .NET). Set in a night school, you play as Diana, a Gen Z student trapped and desperately looking for her phone charger while avoiding the student council patrol and a lurking *Kuntilanak*.
+
+> **Note:** The game is exclusively in **Indonesian language** (Text and Voice Over). It is designed for **Windows PC** and only supports **Mouse & Keyboard** (no gamepad support).
 
 ## ✨ Key Features
-- **Deterministic Core Logic:** Separation of pure game logic (C# models) from Godot's engine layer, allowing unit testing without launching the editor.
-- **Event-Driven Architecture:** Decoupled systems utilizing a centralized `EventBus` for seamless communication across state machines and gameplay loops.
-- **Dynamic Resource Scaling:** Built-in `GraphicsPresets` engine intelligently scales 3D rendering (`Scaling3D`) and toggles real-time shadow casting to sustain 30+ FPS on base hardware.
-- **Audio Ducking & Subtitle Sync:** Automated DSP integration via `AudioManager` for voice-over ducking and dynamic subtitle rendering.
+- **PS1-Era Aesthetics:** Retro visuals with nearest-neighbor filtering, optional dither, and grain effects.
+- **Extreme Optimization:** Built targeting low-end hardware (Intel Celeron, 8GB RAM, iGPU). Targets a stable 30+ FPS on Low presets via Godot's Compatibility renderer.
+- **Pure Logic Architecture:** Separation of pure game logic (C# models in `scripts/core/`) from Godot's engine layer, ensuring zero per-frame allocations.
+- **Event-Driven Communication:** Decoupled systems utilizing a centralized `EventBus`.
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 - **Godot Engine 4.x** (Mono / .NET version)
 - **.NET 8.0 SDK** (or newer)
+- Windows OS
 
 ### Build & Run
 1. Clone the repository:
@@ -33,14 +37,8 @@
    godot --path .
    ```
 
-## 📖 Documentation
-Detailed architectural guidelines and engineering rules can be found in our core documentation:
-- [Architecture Manifesto (ARCHITECT.md)](ARCHITECT.md)
-- [Product Requirements (PRD_V2.md)](PRD_V2.md)
-- [Design Tokens (DESIGN.md)](DESIGN.md)
-
 ## 🤝 Contributing
-We welcome contributions! Please review our [Contributing Guidelines](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md) before submitting a Pull Request.
+We welcome contributions! Please review our [Contributing Guidelines](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md) before submitting a Pull Request. Note that we have strict guidelines on what is out of scope for version 1.0 (e.g., no other languages, no gamepad support, no vocal music).
 
 ## 🛡️ Security
 For vulnerability disclosures, please refer to our [Security Policy](SECURITY.md).
@@ -50,4 +48,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 All external visual and audio assets are attributed in `assets/ASSETS.md`.
 
 ---
-*Maintained by [@FerrDxD](https://github.com/FerrDxD)*
+*Maintained by [@FerrDxD](https://github.com/FerrDxD) | Contact: maulanaferdi0678@gmail.com*
