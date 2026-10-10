@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7t8r9s0u1v2w"]
+
+[ext_resource type="Script" path="res://scripts/interactables/PowerPanel.cs" id="1_script"]
+[ext_resource type="Script" path="res://scripts/data/PuzzleData.cs" id="2_data"]
+[ext_resource type="PackedScene" uid="uid://fr8n5p7q3r2s4" path="res://scenes/interactables/Switch.tscn" id="3_switch"]
+
+[sub_resource type="Resource" id="Resource_p2"]
+script = ExtResource("2_data")
+Id = &"P2_Power"
+Description = "Nyalakan saklar listrik"
+Sequence = PackedInt32Array(1, 2, 0)
+Code = ""
+RequiredItems = Array[StringName]([])
+
+[node name="PowerPanel" type="Node3D"]
+script = ExtResource("1_script")
+PuzzleId = &"P2_Power"
+PuzzleConfig = SubResource("Resource_p2")
+
+[node name="Switch0" parent="." instance=ExtResource("3_switch")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0)
+SwitchIndex = 0
+
+[node name="Switch1" parent="." instance=ExtResource("3_switch")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+SwitchIndex = 1
+
+[node name="Switch2" parent="." instance=ExtResource("3_switch")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0)
+SwitchIndex = 2

@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://c_boot"]
+
+[ext_resource type="Script" path="res://scripts/boot/Boot.cs" id="1_script"]
+[ext_resource type="Theme" uid="uid://bu1c2d3e4f5g6" path="res://resources/ui_theme.tres" id="2_theme"]
+
+[node name="Boot" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0431373, 0.0431373, 0.0509804, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LogoText" type="Label" parent="CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Hype GLK Presents"
+horizontal_alignment = 1
+vertical_alignment = 1

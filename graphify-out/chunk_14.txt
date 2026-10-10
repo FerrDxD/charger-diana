@@ -1,0 +1,11 @@
+C:\Users\Hype GLK\charger-diana\design_reference\layar_hp_senter_catatan_charger_diana\code.html
+C:\Users\Hype GLK\charger-diana\design_reference\layar_hp_senter_catatan_charger_diana\notes.md
+C:\Users\Hype GLK\charger-diana\design_reference\layar_intro_judul_adegan_charger_diana\code.html
+C:\Users\Hype GLK\charger-diana\design_reference\layar_intro_judul_adegan_charger_diana\notes.md
+C:\Users\Hype GLK\charger-diana\design_reference\main_menu_charger_diana\code.html
+C:\Users\Hype GLK\charger-diana\design_reference\main_menu_charger_diana\notes.md
+C:\Users\Hype GLK\charger-diana\design_reference\menu_jeda_pause_charger_diana\code.html
+C:\Users\Hype GLK\charger-diana\design_reference\menu_jeda_pause_charger_diana\notes.md
+C:\Users\Hype GLK\charger-diana\design_reference\pembaca_catatan_kertas_charger_diana\code.html
+C:\Users\Hype GLK\charger-diana\design_reference\pengaturan_charger_diana\code.html
+C:\Users\Hype GLK\charger-diana\design_reference\pengaturan_charger_diana\notes.md

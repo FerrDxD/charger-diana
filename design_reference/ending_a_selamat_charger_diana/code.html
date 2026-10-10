@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Charger Diana - Ending 1: Survived</title>
+<!-- Tailwind CSS v3 CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: VT323 for authentic PS1/Retro terminal font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=VT323&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            void: '#0B0A0A',
+            paper: '#D8D2C4',
+            blood: '#8B1E1E',
+            phoneglow: '#9FB8C8',
+            warn: '#C9A227',
+            mold: '#3E4A3A',
+          },
+          fontFamily: {
+            pixel: ['"VT323"', 'monospace', 'Courier New'],
+          },
+        }
+      }
+    }
+  </script>
+<!-- Custom CSS for CRT Scanlines, Dither & Vignette -->
+<style data-purpose="retro-postprocessing">
+    /* Pixelated rendering for retro aesthetic */
+    * {
+      image-rendering: pixelated;
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    body {
+      background-color: #0B0A0A;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: 'VT323', monospace;
+      letter-spacing: 0.05em;
+    }
+
+    /* CRT Horizontal Scanlines Overlay */
+    .crt-scanlines {
+      background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.45) 50%
+      ), linear-gradient(
+        90deg,
+        rgba(255, 0, 0, 0.02),
+        rgba(0, 255, 0, 0.01),
+        rgba(0, 0, 255, 0.02)
+      );
+      background-size: 100% 4px, 6px 100%;
+      pointer-events: none;
+    }
+
+    /* Heavy CRT Screen Vignette */
+    .crt-vignette {
+      box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.92),
+                  inset 0 0 180px rgba(11, 10, 10, 0.85);
+      pointer-events: none;
+    }
+
+    /* Text Outline for retro readability against backgrounds */
+    .text-pixel-shadow {
+      text-shadow: 2px 2px 0px #0B0A0A, -2px -2px 0px #0B0A0A, 2px -2px 0px #0B0A0A, -2px 2px 0px #0B0A0A, 0px 2px 0px #0B0A0A, 2px 0px 0px #0B0A0A;
+    }
+
+    /* Subtle PS1 Dither Grain Noise Overlay */
+    .dither-noise {
+      background-image: radial-gradient(#0B0A0A 1px, transparent 0);
+      background-size: 4px 4px;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    /* Subtle Terminal Flicker */
+    @keyframes subtle-flicker {
+      0% { opacity: 0.99; }
+      50% { opacity: 0.96; }
+      100% { opacity: 1; }
+    }
+    .flicker-layer {
+      animation: subtle-flicker 0.15s infinite;
+    }
+  </style>
+</head>
+<body class="w-screen h-screen flex items-center justify-center bg-void text-paper">
+<!-- BEGIN: GameDisplayViewport -->
+<!-- 1920x1080 fixed aspect ratio canvas wrapper -->
+<main class="relative w-full h-full max-w-[1920px] max-h-[1080px] aspect-[16/9] overflow-hidden flex flex-col justify-between p-8 sm:p-12 md:p-16 border border-void">
+<!-- Atmospheric Pre-dawn Background Image -->
+<!-- src strictly uses provided image key https://lh3.googleusercontent.com/aida-public/AB6AXuAQzih1XXxKgS7EMStu143dCIa5jufDZgN8Ouuaf5aRU7H_gmBINUKfiqIAQXEa_0hFYAANhZzkbaX4anl-MCDBOefe4jSGMPGqLfvTYgrZRISur9ArHO_NN_u_MxdVBxp-KIBLT4K08d3KgMjgV1vDJZZgCFH5KsZpTaBS7y1G67_XbHQGm_KdqdF6X7TR7j_mFHpnH2u9gTlNyFg7yscEQmAM81AbfgX85dVpagKzHtSjvBn8W7o -->
+<img alt="Atmospheric PS1-era low-poly retro indie horror game ending background depicting dawn silhouette of school gate" class="absolute inset-0 w-full h-full object-cover object-center z-0 filter brightness-95 contrast-105" data-purpose="scene-background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQzih1XXxKgS7EMStu143dCIa5jufDZgN8Ouuaf5aRU7H_gmBINUKfiqIAQXEa_0hFYAANhZzkbaX4anl-MCDBOefe4jSGMPGqLfvTYgrZRISur9ArHO_NN_u_MxdVBxp-KIBLT4K08d3KgMjgV1vDJZZgCFH5KsZpTaBS7y1G67_XbHQGm_KdqdF6X7TR7j_mFHpnH2u9gTlNyFg7yscEQmAM81AbfgX85dVpagKzHtSjvBn8W7o"/>
+<!-- Retro Filters Layers -->
+<div aria-hidden="true" class="absolute inset-0 z-10 crt-scanlines"></div>
+<div aria-hidden="true" class="absolute inset-0 z-10 dither-noise"></div>
+<div aria-hidden="true" class="absolute inset-0 z-10 crt-vignette flicker-layer"></div>
+<!-- BEGIN: TopStatusBar -->
+<header class="relative z-20 w-full flex flex-row items-start justify-between text-base sm:text-xl md:text-2xl uppercase tracking-wider text-pixel-shadow border-b border-mold/70 pb-3" data-purpose="hud-header">
+<!-- Tape Recording Status & Location -->
+<div class="flex items-center space-x-2 text-paper">
+<span class="inline-block w-2.5 h-2.5 bg-blood mr-1"></span>
+<span class="text-paper">[REKAMAN: BERHASIL KELUAR]</span>
+<span class="text-mold font-bold">//</span>
+<span class="text-phoneglow">SMAN 3 - GERBANG UTAMA</span>
+</div>
+<!-- Timestamp & Survived State -->
+<div class="flex items-center space-x-3 text-right">
+<span class="text-paper">WAKTU: <span class="text-phoneglow">04:32 WIB</span></span>
+<span class="text-mold font-bold">|</span>
+<span class="text-warn">STATUS: SELAMAT</span>
+</div>
+</header>
+<!-- END: TopStatusBar -->
+<!-- BEGIN: CenterContent -->
+<section class="relative z-20 self-center flex flex-col items-center justify-center text-center my-auto max-w-4xl px-4 py-8" data-purpose="ending-narrative">
+<!-- Ending Tag Badge -->
+<div class="mb-4 inline-block px-3 py-1 bg-void/85 border border-mold text-paper text-base sm:text-lg tracking-widest uppercase text-pixel-shadow">
+        [ ENDING 1 / 3 : SURVIVED ]
+      </div>
+<!-- Main Ending Sentence -->
+<h1 class="text-3xl sm:text-5xl md:text-6xl text-paper text-pixel-shadow font-normal uppercase leading-tight tracking-wider mb-6">
+        Diana pulang dengan charger di tangan.
+      </h1>
+<!-- Sharp 1px Divider Line (Mold/Blood Accent) -->
+<div class="w-48 sm:w-72 h-[1px] bg-blood mb-8"></div>
+<!-- Diegetic Battery & Charger Status -->
+<div class="bg-void/80 border border-mold px-6 py-4 flex flex-col items-center space-y-3" data-purpose="battery-status-box">
+<div class="flex items-center space-x-3 text-lg sm:text-2xl tracking-widest text-pixel-shadow">
+<span class="text-paper">BATERAI HP:</span>
+<!-- Pixelated battery representation -->
+<div class="flex items-center space-x-1.5">
+<span class="text-warn font-bold">1%</span>
+<!-- Battery Icon Shell -->
+<div class="relative w-8 h-4 border border-paper p-[1px] flex items-center bg-void">
+<!-- 1% Slivers of battery -->
+<div class="w-1.5 h-full bg-warn"></div>
+<!-- Battery positive nipple -->
+<div class="absolute -right-1 top-1 w-0.5 h-1.5 bg-paper"></div>
+</div>
+<!-- Charging Bolt -->
+<span class="text-phoneglow font-bold ml-1 text-xl">[⚡]</span>
+</div>
+</div>
+<!-- Narrative Relief Subtext -->
+<p class="text-sm sm:text-lg md:text-xl text-phoneglow/90 text-pixel-shadow max-w-2xl font-pixel leading-snug">
+          Charger terhubung. Diana berhasil kembali ke rumah sebelum fajar menyingsing.
+        </p>
+</div>
+</section>
+<!-- END: CenterContent -->
+<!-- BEGIN: BottomPromptAndMetadata -->
+<footer class="relative z-20 w-full flex flex-col sm:flex-row items-center justify-between text-xs sm:text-sm md:text-base uppercase tracking-wider text-pixel-shadow border-t border-mold/60 pt-3 gap-3 sm:gap-0" data-purpose="hud-footer">
+<!-- Case Identification Code -->
+<div class="text-mold text-left order-2 sm:order-1 font-mono text-xs sm:text-sm">
+        KASUS #1998-SMA-04 SELESAI
+      </div>
+<!-- Action Key Prompt -->
+<div class="order-1 sm:order-2">
+<button class="px-5 py-1.5 bg-void/90 border border-paper text-paper hover:bg-paper hover:text-void transition-none active:bg-warn active:text-void text-lg sm:text-xl tracking-widest cursor-pointer outline-none" data-purpose="return-button" onclick="console.log('Navigating to Main Menu');" type="button">
+          [E] MENU UTAMA
+        </button>
+</div>
+<!-- Technical Metadata -->
+<div class="text-mold text-right order-3 font-mono text-xs sm:text-sm">
+        KONSOL INDIE PSX // GODOT 4 CONTROL
+      </div>
+</footer>
+<!-- END: BottomPromptAndMetadata -->
+</main>
+<!-- END: GameDisplayViewport -->
+<!-- BEGIN: InteractiveKeyboardListener -->
+<script data-purpose="keyboard-events">
+    // Listen for [E] or Enter key to return to main menu
+    window.addEventListener('keydown', function(event) {
+      if (event.key === 'e' || event.key === 'E' || event.key === 'Enter') {
+        const button = document.querySelector('[data-purpose="return-button"]');
+        if (button) {
+          button.classList.add('bg-paper', 'text-void');
+          setTimeout(() => {
+            button.classList.remove('bg-paper', 'text-void');
+            console.log('Menu Utama dipilih melalui keyboard.');
+          }, 150);
+        }
+      }
+    });
+  </script>
+<!-- END: InteractiveKeyboardListener -->
+</body></html>

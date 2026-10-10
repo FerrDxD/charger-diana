@@ -1,0 +1,24 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/OsisProfile.cs" id="1_osis"]
+
+[resource]
+script = ExtResource("1_osis")
+AgentName = "Ferdi (HT)"
+Traits = "Sarkastik, malas, lari abnormal"
+PatrolSpeed = 2.5
+InvestigateSpeed = 3.2
+ChaseSpeed = 5.0
+PanicSpeed = 5.5
+SightRange = 6.0
+AlertRiseRate = 0.4
+SuspiciousThreshold = 0.3
+InvestigateThreshold = 0.6
+VoicePitch = 0.9
+AudioBusName = "VO"
+VoInvestigatePath = "vo_ferdi_curious"
+VoInvestigateText = "Hadeh... siapa sih malem-malem cari kerjaan."
+VoChasePath = "vo_ferdi_chase"
+VoChaseText = "Sini lu, bikin gue harus lari aja."
+VoPanicPath = "vo_ferdi_panic"
+VoPanicText = "Ogah gue ngurusin ginian, cabut!!"

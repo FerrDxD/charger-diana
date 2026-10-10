@@ -1,0 +1,4 @@
+[gd_scene load_steps=1 format=3 uid="uid://bn7v3k5m9p2q4"]
+
+[node name="PatrolWaypoint" type="Marker3D"]
+groups = ["patrol_waypoint"]

@@ -1,0 +1,117 @@
+[gd_scene load_steps=7 format=3 uid="uid://cdj8x7nl5qkvw"]
+
+[ext_resource type="Script" path="res://scripts/ui/Hud.cs" id="1_5y3vh"]
+[ext_resource type="Theme" uid="uid://bu1c2d3e4f5g6" path="res://resources/ui_theme.tres" id="2_theme"]
+[ext_resource type="PackedScene" uid="uid://cmp_battery_indicator" path="res://scenes/ui/components/BatteryIndicator.tscn" id="3_battery"]
+[ext_resource type="PackedScene" uid="uid://cmp_stamina_bar" path="res://scenes/ui/components/StaminaBar.tscn" id="4_stamina"]
+[ext_resource type="PackedScene" uid="uid://cmp_interact_prompt" path="res://scenes/ui/components/InteractPrompt.tscn" id="5_prompt"]
+[ext_resource type="PackedScene" uid="uid://cmp_subtitle_box" path="res://scenes/ui/components/SubtitleBox.tscn" id="6_subtitle"]
+
+[node name="Hud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("2_theme")
+script = ExtResource("1_5y3vh")
+
+[node name="Crosshair" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CrosshairDot" type="ColorRect" parent="Crosshair"]
+layout_mode = 2
+custom_minimum_size = Vector2(2, 2)
+color = Color(0.847059, 0.827451, 0.768627, 0.6)
+
+[node name="PromptContainer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 24.0
+offset_right = 100.0
+offset_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InteractPrompt" parent="PromptContainer" instance=ExtResource("5_prompt")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BottomCenter" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -130.0
+offset_right = 400.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 8
+alignment = 2
+
+[node name="SubtitleBox" parent="BottomCenter" instance=ExtResource("6_subtitle")]
+layout_mode = 2
+
+[node name="KeybindHints" type="HBoxContainer" parent="BottomCenter"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 24
+
+[node name="Hint1" type="Label" parent="BottomCenter/KeybindHints"]
+layout_mode = 2
+text = "[SHIFT] LARI"
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.847059, 0.827451, 0.768627, 0.6)
+
+[node name="Hint2" type="Label" parent="BottomCenter/KeybindHints"]
+layout_mode = 2
+text = "[F] SENTER"
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.847059, 0.827451, 0.768627, 0.6)
+
+[node name="Hint3" type="Label" parent="BottomCenter/KeybindHints"]
+layout_mode = 2
+text = "[SPASI] TAHAN NAPAS"
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.847059, 0.827451, 0.768627, 0.6)
+
+[node name="BottomLeft" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -70.0
+offset_right = 172.0
+offset_bottom = -24.0
+grow_vertical = 0
+theme_override_constants/separation = 6
+
+[node name="BatteryIndicator" parent="BottomLeft" instance=ExtResource("3_battery")]
+layout_mode = 2
+Prefix = "HP"
+
+[node name="StaminaBar" parent="BottomLeft" instance=ExtResource("4_stamina")]
+layout_mode = 2

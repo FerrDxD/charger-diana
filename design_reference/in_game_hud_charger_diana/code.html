@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Charger Diana - In-Game HUD</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: VT323 -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=VT323&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            void: '#0B0A0A',
+            paper: '#D8D2C4',
+            phoneGlow: '#9FB8C8',
+            warn: '#C9A227',
+            mold: '#3E4A3A',
+          },
+          fontFamily: {
+            mono: ['"VT323"', 'monospace'],
+          }
+        }
+      }
+    };
+  </script>
+<!-- CRT Scanlines and Post-Processing Styles -->
+<style data-purpose="crt-effects">
+    /* Scanline pattern overlay */
+    .crt-scanlines {
+      background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.45) 50%
+      ), linear-gradient(
+        90deg,
+        rgba(255, 0, 0, 0.02),
+        rgba(0, 255, 0, 0.01),
+        rgba(0, 0, 255, 0.02)
+      );
+      background-size: 100% 3px, 3px 100%;
+      pointer-events: none;
+    }
+
+    /* Subtle PS1 CRT vignette corner shadow */
+    .crt-vignette {
+      box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.85), inset 0 0 160px rgba(11, 10, 10, 0.7);
+      pointer-events: none;
+    }
+
+    /* Subtle cathode screen flicker */
+    @keyframes screenFlicker {
+      0% { opacity: 0.99; }
+      50% { opacity: 1; }
+      52% { opacity: 0.97; }
+      54% { opacity: 1; }
+      80% { opacity: 0.985; }
+      100% { opacity: 0.99; }
+    }
+
+    .crt-flicker {
+      animation: screenFlicker 0.15s infinite;
+    }
+
+    /* 2px sharp dark text shadow for pure retro font legibility */
+    .retro-text-shadow {
+      text-shadow: 
+        -2px -2px 0 #0B0A0A,
+         2px -2px 0 #0B0A0A,
+        -2px  2px 0 #0B0A0A,
+         2px  2px 0 #0B0A0A,
+         0px  2px 0 #0B0A0A,
+         0px -2px 0 #0B0A0A,
+        -2px  0px 0 #0B0A0A,
+         2px  0px 0 #0B0A0A,
+         0 3px 6px rgba(0, 0, 0, 0.9);
+    }
+  </style>
+<!-- Retro Pixel Components Style -->
+<style data-purpose="hud-components">
+    /* Pixelated Sharp Battery Icon */
+    .pixel-battery-shell {
+      position: relative;
+      width: 22px;
+      height: 12px;
+      border: 1px solid #9FB8C8;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      padding: 1px;
+      gap: 1px;
+      background-color: rgba(11, 10, 10, 0.6);
+    }
+
+    /* Battery terminal nub */
+    .pixel-battery-shell::after {
+      content: '';
+      position: absolute;
+      right: -3px;
+      top: 2px;
+      width: 2px;
+      height: 6px;
+      background-color: #9FB8C8;
+    }
+
+    .battery-pip {
+      width: 4px;
+      height: 8px;
+      background-color: #9FB8C8;
+    }
+
+    /* Minimalist Stamina Bar container */
+    .stamina-bar-container {
+      width: 140px;
+      height: 4px;
+      border: 1px solid #3E4A3A;
+      background-color: rgba(11, 10, 10, 0.8);
+      position: relative;
+    }
+
+    .stamina-bar-fill {
+      height: 100%;
+      width: 78%;
+      background-color: #D8D2C4;
+    }
+  </style>
+</head>
+<body class="bg-void m-0 p-0 overflow-hidden select-none font-mono antialiased w-screen h-screen flex items-center justify-center">
+<!-- BEGIN: GameViewportContainer -->
+<!-- Constrained to true 16:9 aspect ratio standard -->
+<main class="relative w-full h-full max-w-[1920px] max-h-[1080px] aspect-video overflow-hidden bg-void flex flex-col justify-between" data-purpose="game-screen">
+<!-- BEGIN: BackgroundView -->
+<!-- PS1 Horror Corridor Perspective -->
+<div class="absolute inset-0 z-0" data-purpose="first-person-render">
+<img alt="First-person POV in a dark, grimy Indonesian high school corridor at night" class="w-full h-full object-cover object-center filter brightness-95 contrast-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYt3eJlPak5Ry9knpkHt1pGtY107ZlhmENQJvKgTy27LDn3NF45jOnFTfSj6nAcNe1ZrEKwW4OweVbPR2R_NcDlaNqYwSpHiJZXuGi4ySZRpcnx3PODiRs8WPdJbmv49ch6zKbgjgX4dxWiFwdGXU_6j_S-f9RT2J71hj-WMHpodF5EopPQDblYT38A5_nZh3JZxvH-jWEslXy0chtHYuJd-GWvleYeqeDjTxveeO9VA3XjOFnT-8"/>
+</div>
+<!-- END: BackgroundView -->
+<!-- BEGIN: CRTPostProcessingOverlay -->
+<!-- Full-screen retro scanlines and analog lens falloff -->
+<div aria-hidden="true" class="absolute inset-0 z-10 crt-scanlines crt-flicker pointer-events-none" data-purpose="scanline-layer"></div>
+<div aria-hidden="true" class="absolute inset-0 z-10 crt-vignette pointer-events-none" data-purpose="lens-vignette"></div>
+<!-- END: CRTPostProcessingOverlay -->
+<!-- BEGIN: CenterScreenCrosshair -->
+<!-- Inconspicuous 2px by 2px reticle point -->
+<div class="absolute inset-0 z-20 flex items-center justify-center pointer-events-none" data-purpose="aim-reticle">
+<div class="w-[2px] h-[2px] bg-paper opacity-60 shadow-[0_0_1px_#0B0A0A]"></div>
+</div>
+<!-- END: CenterScreenCrosshair -->
+<!-- BEGIN: TopHUDSection -->
+<!-- Empty top clearance preserves unhindered ceiling shadows and claustrophobia -->
+<header class="relative z-20 w-full p-8 flex justify-between items-start pointer-events-none" data-purpose="top-zone">
+<!-- Intentionally left minimal per design guidelines (90% view clearance) -->
+</header>
+<!-- END: TopHUDSection -->
+<!-- BEGIN: BottomHUDSection -->
+<section class="relative z-20 w-full p-8 pb-7 flex flex-col justify-end" data-purpose="bottom-hud-zone">
+<!-- Subtitle and Interaction Prompts Stacked Center -->
+<div class="w-full flex flex-col items-center justify-end mb-4 text-center pointer-events-none">
+<!-- BEGIN: SubtitleArea -->
+<!-- Diegetic inner dialogue -->
+<div class="mb-3 max-w-2xl px-4" data-purpose="narrative-subtitle">
+<p class="text-paper text-xl md:text-2xl tracking-wide retro-text-shadow leading-tight">
+<span class="text-phoneGlow">Diana:</span> Pintunya terkunci dari dalam... harus cari jalan lain.
+          </p>
+</div>
+<!-- END: SubtitleArea -->
+<!-- BEGIN: InteractionPrompt -->
+<!-- Focus action trigger -->
+<div class="flex flex-col items-center space-y-1.5" data-purpose="interaction-hint">
+<div class="text-paper text-2xl md:text-[30px] tracking-wider retro-text-shadow">
+            [E] Buka pintu
+          </div>
+<!-- Secondary subtle keybind control clues -->
+<div class="text-paper/60 text-base md:text-lg tracking-widest retro-text-shadow flex items-center space-x-6">
+<span>[Shift] Lari</span>
+<span>[F] Senter</span>
+<span>[Spasi] Tahan napas</span>
+</div>
+</div>
+<!-- END: InteractionPrompt -->
+</div>
+<!-- BEGIN: BottomLeftStatusHUD -->
+<!-- Phone Battery & Physical Stamina gauge -->
+<footer class="absolute bottom-6 left-8 flex flex-col items-start gap-1 pointer-events-none" data-purpose="status-indicators">
+<!-- Phone Battery Row -->
+<div class="flex items-center space-x-2 text-phoneGlow retro-text-shadow">
+<span class="text-lg md:text-xl tracking-wider leading-none">HP 34%</span>
+<!-- Low-poly Pixel Battery Icon -->
+<div class="pixel-battery-shell" title="Baterai Ponsel: 34%">
+<div class="battery-pip"></div>
+<div class="battery-pip"></div>
+</div>
+</div>
+<!-- Stamina Horizontal Bar Indicator -->
+<div class="stamina-bar-container" title="Stamina">
+<div class="stamina-bar-fill"></div>
+</div>
+</footer>
+<!-- END: BottomLeftStatusHUD -->
+</section>
+<!-- END: BottomHUDSection -->
+</main>
+<!-- END: GameViewportContainer -->
+</body></html>

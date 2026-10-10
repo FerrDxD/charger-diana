@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dq5j8k4m2n9p1"]
+
+[ext_resource type="Script" path="res://scripts/ai/OsisPatrol.cs" id="1"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_new"]
+radius = 0.5
+height = 1.8
+
+[node name="OsisPatrol" type="CharacterBody3D"]
+script = ExtResource("1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_new")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.5
+target_desired_distance = 0.5
+path_max_distance = 3.0
+
+[node name="SightRay" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -9)

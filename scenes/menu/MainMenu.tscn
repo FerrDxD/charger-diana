@@ -1,0 +1,137 @@
+[gd_scene load_steps=5 format=3 uid="uid://c_main_menu"]
+
+[ext_resource type="Theme" uid="uid://bu1c2d3e4f5g6" path="res://resources/ui_theme.tres" id="1_theme"]
+[ext_resource type="Script" path="res://scripts/menu/MainMenu.cs" id="2_script"]
+[ext_resource type="PackedScene" uid="uid://cmp_menu_button" path="res://scenes/ui/components/MenuButton.tscn" id="3_button"]
+[ext_resource type="PackedScene" uid="uid://cmp_battery_indicator" path="res://scenes/ui/components/BatteryIndicator.tscn" id="4_battery"]
+
+[ext_resource type="FontFile" uid="uid://cx6r0b2q5y" path="res://assets/fonts/RockSalt.ttf" id="5_rocksalt"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_theme")
+script = ExtResource("2_script")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0431373, 0.0431373, 0.0509804, 1)
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="TitleContainer" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Title" type="Label" parent="Margin/TitleContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_rocksalt")
+theme_override_font_sizes/font_size = 56
+theme_override_colors/font_color = Color(0.847059, 0.827451, 0.768627, 1)
+text = "CHARGER DIANA"
+
+[node name="Underline" type="ColorRect" parent="Margin/TitleContainer"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+size_flags_horizontal = 0
+color = Color(0.698039, 0.14902, 0.117647, 1)
+
+[node name="MenuContainer" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="BtnMulai" parent="Margin/MenuContainer" instance=ExtResource("3_button")]
+layout_mode = 2
+text = "MULAI"
+
+[node name="BtnLanjutkan" parent="Margin/MenuContainer" instance=ExtResource("3_button")]
+layout_mode = 2
+text = "LANJUTKAN"
+
+[node name="BtnPengaturan" parent="Margin/MenuContainer" instance=ExtResource("3_button")]
+layout_mode = 2
+text = "PENGATURAN"
+
+[node name="BtnKredit" parent="Margin/MenuContainer" instance=ExtResource("3_button")]
+layout_mode = 2
+text = "KREDIT"
+
+[node name="BtnKeluar" parent="Margin/MenuContainer" instance=ExtResource("3_button")]
+layout_mode = 2
+text = "KELUAR"
+
+[node name="BottomContainer" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 0
+
+[node name="Hints" type="Label" parent="Margin/BottomContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.227451, 0.227451, 0.25098, 1)
+text = "[Panah] Navigasi  [Enter] Pilih"
+
+[node name="BatteryIndicator" parent="Margin/BottomContainer" instance=ExtResource("4_battery")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="ConfirmDialog" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0431373, 0.0431373, 0.0509804, 0.9)
+
+[node name="VBox" type="VBoxContainer" parent="ConfirmDialog"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+
+[node name="Label" type="Label" parent="ConfirmDialog/VBox"]
+layout_mode = 2
+text = "Mulai baru akan menimpa save?"
+horizontal_alignment = 1
+
+[node name="HBox" type="HBoxContainer" parent="ConfirmDialog/VBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 32
+
+[node name="BtnYa" parent="ConfirmDialog/VBox/HBox" instance=ExtResource("3_button")]
+layout_mode = 2
+text = "YA"
+
+[node name="BtnBatal" parent="ConfirmDialog/VBox/HBox" instance=ExtResource("3_button")]
+layout_mode = 2
+text = "BATAL"

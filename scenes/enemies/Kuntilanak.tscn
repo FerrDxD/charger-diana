@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://er7m4n6p9q2s1"]
+
+[ext_resource type="Script" path="res://scripts/ai/Kuntilanak.cs" id="1"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_new"]
+radius = 0.4
+height = 1.7
+
+[node name="Kuntilanak" type="CharacterBody3D"]
+script = ExtResource("1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_new")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.5
+target_desired_distance = 0.5
+path_max_distance = 3.0

@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://scn_ending_a"]
+
+[ext_resource type="Theme" uid="uid://bu1c2d3e4f5g6" path="res://resources/ui_theme.tres" id="1_theme"]
+[ext_resource type="Script" path="res://scripts/endings/EndingA.cs" id="2_script"]
+[ext_resource type="PackedScene" uid="uid://cmp_battery_indicator" path="res://scenes/ui/components/BatteryIndicator.tscn" id="3_bat"]
+
+[node name="EndingA" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_theme")
+script = ExtResource("2_script")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.043, 0.043, 0.051, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MessageText" type="Label" parent="CenterContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.847, 0.827, 0.769, 1)
+theme_override_font_sizes/font_size = 32
+text = "Akhirnya... aku bisa mengisi daya HP-ku."
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="CenterContainer/VBox"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="BatteryIndicator" parent="CenterContainer/VBox" instance=ExtResource("3_bat")]
+layout_mode = 2
+size_flags_horizontal = 4

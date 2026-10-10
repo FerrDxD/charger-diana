@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmp_interact_prompt"]
+
+[ext_resource type="Theme" uid="uid://bu1c2d3e4f5g6" path="res://resources/ui_theme.tres" id="theme"]
+[ext_resource type="Script" path="res://scripts/ui/components/InteractPrompt.cs" id="script"]
+
+[node name="InteractPrompt" type="Label"]
+anchors_preset = 0
+offset_right = 200.0
+offset_bottom = 30.0
+theme = ExtResource("theme")
+custom_minimum_size = Vector2(200, 30)
+text = "[E] Buka"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_outline_color = Color(0.0431373, 0.0431373, 0.0509804, 1)
+theme_override_constants/outline_size = 2
+script = ExtResource("script")

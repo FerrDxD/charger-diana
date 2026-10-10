@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmp_stamina_bar"]
+
+[ext_resource type="Theme" uid="uid://bu1c2d3e4f5g6" path="res://resources/ui_theme.tres" id="theme"]
+[ext_resource type="Script" path="res://scripts/ui/components/StaminaBar.cs" id="script"]
+
+[node name="StaminaBar" type="ProgressBar"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 140.0
+offset_bottom = 4.0
+grow_horizontal = 2
+theme = ExtResource("theme")
+custom_minimum_size = Vector2(140, 4)
+value = 100.0
+show_percentage = false
+script = ExtResource("script")

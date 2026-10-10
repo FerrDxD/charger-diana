@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3m7h8s2u9q1x"]
+
+[ext_resource type="Script" path="res://scripts/interactables/Pickup.cs" id="1_script"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pickup"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pickup"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="Pickup" type="StaticBody3D"]
+script = ExtResource("1_script")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_pickup")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_pickup")

@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmp_setting_row"]
+
+[ext_resource type="Theme" uid="uid://bu1c2d3e4f5g6" path="res://resources/ui_theme.tres" id="theme"]
+[ext_resource type="Script" path="res://scripts/ui/components/SettingRow.cs" id="script"]
+
+[node name="SettingRow" type="HBoxContainer"]
+offset_right = 500.0
+offset_bottom = 36.0
+theme = ExtResource("theme")
+custom_minimum_size = Vector2(400, 36)
+theme_override_constants/separation = 16
+alignment = 0
+script = ExtResource("script")
+
+[node name="TitleLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VOLUME"
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.847059, 0.827451, 0.768627, 1)
+
+[node name="ControlSlot" type="Control" parent="."]
+layout_mode = 2
+custom_minimum_size = Vector2(220, 36)

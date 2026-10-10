@@ -1,0 +1,24 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/OsisProfile.cs" id="1_osis"]
+
+[resource]
+script = ExtResource("1_osis")
+AgentName = "Adam (HT)"
+Traits = "Pasif-agresif, jeli, lambat"
+PatrolSpeed = 1.4
+InvestigateSpeed = 1.8
+ChaseSpeed = 3.2
+PanicSpeed = 3.5
+SightRange = 9.0
+AlertRiseRate = 0.8
+SuspiciousThreshold = 0.15
+InvestigateThreshold = 0.35
+VoicePitch = 1.0
+AudioBusName = "VO"
+VoInvestigatePath = "vo_adam_curious"
+VoInvestigateText = "Oh, jadi ada yang mau main petak umpet sama OSIS?"
+VoChasePath = "vo_adam_chase"
+VoChaseText = "Terus aja lari, ujung-ujungnya juga ketahuan."
+VoPanicPath = "vo_adam_panic"
+VoPanicText = "Bagus banget... sekarang ada setan beneran."

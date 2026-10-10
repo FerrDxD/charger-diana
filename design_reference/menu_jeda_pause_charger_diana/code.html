@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Jeda (Pause) - Charger Diana</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-font-smoothing: none;
+      -moz-osx-font-smoothing: unset;
+    }
+    body {
+      background-color: #0B0A0A;
+      color: #D8D2C4;
+      font-family: 'VT323', monospace;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+    }
+
+    /* PS1 CRT Scanlines & Grain */
+    .crt-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.65) 50%
+      ), linear-gradient(
+        90deg,
+        rgba(255, 0, 0, 0.03),
+        rgba(0, 255, 0, 0.01),
+        rgba(0, 0, 255, 0.03)
+      );
+      background-size: 100% 3px, 6px 100%;
+      z-index: 25;
+    }
+
+    /* PS1 Pixel Dithering Effect */
+    .dither-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.18;
+      background-image: radial-gradient(#D8D2C4 0.75px, transparent 0.75px), radial-gradient(#000000 0.75px, transparent 0.75px);
+      background-size: 4px 4px;
+      background-position: 0 0, 2px 2px;
+      z-index: 24;
+    }
+
+    /* Text Outline for readability on dark backgrounds */
+    .retro-outline {
+      text-shadow: 
+        -2px -2px 0 #000,  
+         2px -2px 0 #000,
+        -2px  2px 0 #000,
+         2px  2px 0 #000,
+         0px  3px 0 #000,
+         0px -3px 0 #000;
+    }
+
+    /* Subtle PS1 Screen Flicker */
+    @keyframes subtle-flicker {
+      0% { opacity: 0.98; }
+      50% { opacity: 1; }
+      52% { opacity: 0.96; }
+      54% { opacity: 1; }
+      80% { opacity: 0.99; }
+      100% { opacity: 0.98; }
+    }
+    .flicker {
+      animation: subtle-flicker 0.15s infinite;
+    }
+
+    /* Custom Box Sharp Borders */
+    .sharp-box {
+      border: 1px solid #3E4A3A;
+      background-color: rgba(11, 10, 10, 0.92);
+      box-shadow: 0 0 0 1px #0B0A0A;
+    }
+  </style>
+</head>
+<body class="relative w-screen h-screen flex items-center justify-center bg-[#0B0A0A] overflow-hidden">
+
+  <!-- Background Frozen Gameplay Screenshot (Corridor POV) -->
+  <div class="absolute inset-0 z-0">
+    <img 
+      src="https://lh3.googleusercontent.com/aida/AEtjO1XxN4Ut41HLtKT6Hmh5QlhoJxmrXSK6OGZqiKWWEC1SA5z1ok2QI8qMJnF76rQSC0DsvU_lRDgL4CXFw3S50FKN4ySgNFYrecUdxDRBB_IqQgjhQVLnvVAj9pPBn9dEC8XVOebBX1BxnmFyZDw2T3HbP-3KaN9urZIIZGBqR4YYn3p8IgniSIFRhNZQfuhfE-rCcMP8F4vTpyjtI5uZSugqm9Bi4_XfB46vm_clmwyMeQQIquV980qQhw" 
+      alt="Hallway In-Game Corridor" 
+      class="w-full h-full object-cover filter brightness-[0.22] contrast-[1.15] grayscale-[0.25]"
+    />
+    <!-- 80% Black Darkening Veil as per design brief 5.5 -->
+    <div class="absolute inset-0 bg-[#0B0A0A]/80"></div>
+  </div>
+
+  <!-- Retro Screen Texture Overlays -->
+  <div class="dither-layer"></div>
+  <div class="crt-overlay"></div>
+
+  <!-- Top In-Game Status Frozen Banner -->
+  <div class="absolute top-8 left-10 right-10 flex justify-between items-center text-[#D8D2C4]/60 text-xl tracking-wider z-20">
+    <div class="flex items-center gap-3">
+      <span class="w-2.5 h-2.5 bg-[#8B1E1E]"></span>
+      <span class="text-[#D8D2C4]/80">PERMAINAN DIHENTIKAN SEMENTARA</span>
+      <span class="text-[#3E4A3A]">|</span>
+      <span class="text-sm tracking-widest text-[#9FB8C8]">SMAN 3 - LORONG KELAS XI</span>
+    </div>
+    <div class="flex items-center gap-6">
+      <span class="text-[#9FB8C8]">23:48 WIB</span>
+      <span class="text-[#3E4A3A]">|</span>
+      <div class="flex items-center gap-2">
+        <span class="text-sm">BATERAI HP:</span>
+        <span class="text-[#9FB8C8]">34%</span>
+        <div class="inline-flex items-center border border-[#9FB8C8] px-0.5 py-0.5 w-6 h-3.5">
+          <div class="bg-[#9FB8C8] w-2 h-2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Centered Pause Menu Column Box (Design 5.5 Spec) -->
+  <div class="relative z-30 flex flex-col items-center">
+    
+    <!-- Outer Frame Container -->
+    <div class="sharp-box w-[420px] p-8 border border-[#3E4A3A]">
+      
+      <!-- Pause Title Header -->
+      <div class="border-b border-[#3E4A3A] pb-4 mb-6 text-center">
+        <h1 class="text-5xl tracking-[0.25em] text-[#D8D2C4] retro-outline font-normal">
+          JEDA
+        </h1>
+        <p class="text-sm text-[#9FB8C8]/70 tracking-widest mt-1">[ STATUS: BERTAHAN HIDUP ]</p>
+      </div>
+
+      <!-- Pause Menu Item List -->
+      <nav class="flex flex-col gap-4 text-3xl tracking-wider">
+        
+        <!-- Active/Selected Item: LANJUTKAN (prefix '> ', color #8B1E1E) -->
+        <div class="group flex items-center gap-2 text-[#8B1E1E] cursor-pointer py-1.5 px-3 border border-[#8B1E1E]/40 bg-[#8B1E1E]/10 transition-colors">
+          <span class="text-[#8B1E1E] text-3xl font-bold flicker">></span>
+          <span class="retro-outline text-3xl font-bold tracking-widest text-[#8B1E1E]">LANJUTKAN</span>
+          <span class="ml-auto text-sm text-[#8B1E1E]/70 tracking-widest">[ESC / ENTER]</span>
+        </div>
+
+        <!-- Secondary Item: PENGATURAN -->
+        <div class="group flex items-center gap-2 text-[#D8D2C4] hover:text-[#8B1E1E] cursor-pointer py-1.5 px-3 hover:bg-[#1D1B1B]/60 transition-colors">
+          <span class="text-transparent group-hover:text-[#8B1E1E] text-3xl">></span>
+          <span class="retro-outline text-3xl tracking-widest text-[#D8D2C4] group-hover:text-[#8B1E1E]">PENGATURAN</span>
+        </div>
+
+        <!-- Secondary Item: KEMBALI KE MENU -->
+        <div class="group flex items-center gap-2 text-[#D8D2C4] hover:text-[#8B1E1E] cursor-pointer py-1.5 px-3 hover:bg-[#1D1B1B]/60 transition-colors">
+          <span class="text-transparent group-hover:text-[#8B1E1E] text-3xl">></span>
+          <span class="retro-outline text-3xl tracking-widest text-[#D8D2C4] group-hover:text-[#8B1E1E]">KEMBALI KE MENU</span>
+        </div>
+
+      </nav>
+
+      <!-- Decorative subtle separator & objective hint -->
+      <div class="mt-8 pt-4 border-t border-[#3E4A3A]/60 flex flex-col gap-1.5 text-xs text-[#D8D2C4]/50 tracking-wider">
+        <div class="flex justify-between items-center">
+          <span class="text-[#C9A227]">MISI SAAT INI:</span>
+          <span class="text-[#D8D2C4]/70">Cari kunci lab di pos satpam</span>
+        </div>
+        <div class="flex justify-between items-center text-[11px] text-[#9FB8C8]/60">
+          <span>CATATAN DI HP:</span>
+          <span>1 / 3 DOKUMEN</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Quick Navigation Keys under the Box -->
+    <div class="mt-6 flex items-center gap-6 text-base text-[#D8D2C4]/60 tracking-wider retro-outline">
+      <span class="text-[#D8D2C4]/80">[W / S]</span> <span>NAVIGASI</span>
+      <span class="text-[#3E4A3A]">|</span>
+      <span class="text-[#D8D2C4]/80">[ENTER]</span> <span>PILIH</span>
+      <span class="text-[#3E4A3A]">|</span>
+      <span class="text-[#D8D2C4]/80">[ESC]</span> <span>KEMBALI KE GAME</span>
+    </div>
+
+  </div>
+
+  <!-- Bottom Left Warning / Horror Tip -->
+  <div class="absolute bottom-8 left-10 flex items-center gap-3 text-sm tracking-wider text-[#D8D2C4]/40 z-20">
+    <span class="text-[#C9A227] font-bold">PETUNJUK:</span>
+    <span>Lampu senter menguras baterai ponsel lebih cepat dan memicu perhatian penjaga OSIS.</span>
+  </div>
+
+  <!-- Bottom Right Build Stamp -->
+  <div class="absolute bottom-8 right-10 text-xs tracking-widest text-[#D8D2C4]/30 z-20">
+    CHARGER DIANA — BUILD v0.9.1
+  </div>
+
+</body>
+</html>

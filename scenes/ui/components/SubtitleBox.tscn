@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmp_subtitle_box"]
+
+[ext_resource type="Theme" uid="uid://bu1c2d3e4f5g6" path="res://resources/ui_theme.tres" id="theme"]
+[ext_resource type="Script" path="res://scripts/ui/components/SubtitleBox.cs" id="script"]
+
+[node name="SubtitleBox" type="RichTextLabel"]
+anchors_preset = 0
+offset_right = 800.0
+offset_bottom = 80.0
+theme = ExtResource("theme")
+custom_minimum_size = Vector2(800, 60)
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+theme_override_font_sizes/normal_font_size = 28
+theme_override_colors/font_outline_color = Color(0.0431373, 0.0431373, 0.0509804, 1)
+theme_override_constants/outline_size = 2
+text = ""
+script = ExtResource("script")

@@ -1,0 +1,111 @@
+[gd_scene load_steps=4 format=3 uid="uid://c_pause_menu"]
+
+[ext_resource type="Theme" uid="uid://bu1c2d3e4f5g6" path="res://resources/ui_theme.tres" id="1_theme"]
+[ext_resource type="Script" path="res://scripts/ui/PauseMenu.cs" id="2_script"]
+[ext_resource type="PackedScene" uid="uid://cmp_menu_button" path="res://scenes/ui/components/MenuButton.tscn" id="3_btn"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+layer = 10
+script = ExtResource("2_script")
+
+[node name="Overlay" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_theme")
+
+[node name="Darken" type="ColorRect" parent="Overlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0431373, 0.0431373, 0.0509804, 0.8)
+
+[node name="SideColumn" type="Control" parent="Overlay"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 320.0
+grow_vertical = 2
+
+[node name="Border" type="ColorRect" parent="Overlay/SideColumn"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+grow_horizontal = 0
+grow_vertical = 2
+color = Color(0.227451, 0.227451, 0.25098, 1)
+
+[node name="Bg" type="ColorRect" parent="Overlay/SideColumn"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0431373, 0.0431373, 0.0509804, 1)
+
+[node name="Margin" type="MarginContainer" parent="Overlay/SideColumn"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 64
+
+[node name="VBox" type="VBoxContainer" parent="Overlay/SideColumn/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Overlay/SideColumn/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "JEDA"
+
+[node name="Spacer" type="Control" parent="Overlay/SideColumn/Margin/VBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="BtnLanjut" parent="Overlay/SideColumn/Margin/VBox" instance=ExtResource("3_btn")]
+layout_mode = 2
+text = "LANJUT"
+
+[node name="BtnPengaturan" parent="Overlay/SideColumn/Margin/VBox" instance=ExtResource("3_btn")]
+layout_mode = 2
+text = "PENGATURAN"
+
+[node name="BtnMenu" parent="Overlay/SideColumn/Margin/VBox" instance=ExtResource("3_btn")]
+layout_mode = 2
+text = "KE MENU UTAMA"
+
+[node name="Hints" type="Label" parent="Overlay"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -40.0
+offset_right = -32.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.227451, 0.227451, 0.25098, 1)
+theme_override_font_sizes/font_size = 24
+text = "[Esc] Lanjut"
+horizontal_alignment = 2

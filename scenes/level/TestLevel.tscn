@@ -1,0 +1,70 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/ui/Hud.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/interactables/NoteReadable.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/OsisPatrol.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/interactables/HidingSpot.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/Kuntilanak.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://scenes/ui/EndingScreen.tscn" id="7"]
+
+[ext_resource type="Script" path="res://scripts/systems/TestLevel.cs" id="8_script"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1"]
+size = Vector2(30, 30)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_1"]
+
+[node name="TestLevel" type="Node3D"]
+script = ExtResource("8_script")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="FloorMesh" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("PlaneMesh_1")
+
+[node name="FloorCollision" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape3D_1")
+
+[node name="Player" parent="." instance=ExtResource("1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866, -0.433, 0.25, 0, 0.5, 0.866, -0.5, -0.75, 0.433, 0, 8, 0)
+light_energy = 0.3
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Hud" parent="UI" instance=ExtResource("2")]
+
+[node name="EndingScreen" parent="UI" instance=ExtResource("7")]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+
+[node name="TestNote" parent="." instance=ExtResource("3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.2, 0)
+
+[node name="OsisPatrol" parent="." instance=ExtResource("4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 5)
+
+[node name="Waypoint1" type="Marker3D" parent="OsisPatrol"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 5)
+groups = ["patrol_waypoint"]
+
+[node name="Waypoint2" type="Marker3D" parent="OsisPatrol"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 5)
+groups = ["patrol_waypoint"]
+
+[node name="Waypoint3" type="Marker3D" parent="OsisPatrol"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -5)
+groups = ["patrol_waypoint"]
+
+[node name="Waypoint4" type="Marker3D" parent="OsisPatrol"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -5)
+groups = ["patrol_waypoint"]
+
+[node name="HidingSpot" parent="." instance=ExtResource("5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+
+[node name="Kuntilanak" parent="." instance=ExtResource("6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 10)

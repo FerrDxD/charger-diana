@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmp_note_sheet"]
+
+[ext_resource type="Theme" uid="uid://bu1c2d3e4f5g6" path="res://resources/ui_theme.tres" id="theme"]
+[ext_resource type="FontFile" uid="uid://c3d4e5f6g7h8i" path="res://assets/fonts/SpecialElite.ttf" id="font_special_elite"]
+[ext_resource type="Script" path="res://scripts/ui/components/NoteSheet.cs" id="script"]
+
+[node name="NoteSheet" type="Panel"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("theme")
+theme_type_variation = &"NotePanel"
+custom_minimum_size = Vector2(400, 300)
+pivot_offset = Vector2(200, 150)
+rotation = -0.035
+script = ExtResource("script")
+
+[node name="Tape" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = -40.0
+offset_top = -6.0
+offset_right = -10.0
+offset_bottom = 14.0
+rotation = 0.15
+color = Color(0.85098, 0.827451, 0.768627, 0.6)
+
+[node name="Content" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("theme")
+fit_content = true
+bbcode_enabled = true
+theme_override_fonts/normal_font = ExtResource("font_special_elite")
+theme_override_font_sizes/normal_font_size = 18
+theme_override_colors/default_color = Color(0.0431373, 0.0431373, 0.0509804, 1)

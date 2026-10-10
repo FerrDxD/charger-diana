@@ -1,0 +1,24 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/OsisProfile.cs" id="1_osis"]
+
+[resource]
+script = ExtResource("1_osis")
+AgentName = "Cecillia (HT)"
+Traits = "Tegas, serius"
+PatrolSpeed = 1.8
+InvestigateSpeed = 2.4
+ChaseSpeed = 4.0
+PanicSpeed = 4.2
+SightRange = 16.0
+AlertRiseRate = 0.4
+SuspiciousThreshold = 0.3
+InvestigateThreshold = 0.6
+VoicePitch = 1.15
+AudioBusName = "VO"
+VoInvestigatePath = "vo_cecillia_curious"
+VoInvestigateText = "Siapa di sana? Aturan jam malam sudah berlaku."
+VoChasePath = "vo_cecillia_chase"
+VoChaseText = "Berhenti di tempat! Pelanggaran tata tertib!"
+VoPanicPath = "vo_cecillia_panic"
+VoPanicText = "Mundur! Semuanya mundur! Ada sesuatu!"

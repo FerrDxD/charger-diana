@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmp_menu_button"]
+
+[ext_resource type="Theme" uid="uid://bu1c2d3e4f5g6" path="res://resources/ui_theme.tres" id="theme"]
+[ext_resource type="Script" path="res://scripts/ui/components/MenuButton.cs" id="script"]
+
+[node name="MenuButton" type="Button"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 200.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme = ExtResource("theme")
+theme_override_font_sizes/font_size = 28
+flat = true
+alignment = 0
+script = ExtResource("script")

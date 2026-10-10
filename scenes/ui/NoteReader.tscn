@@ -1,0 +1,105 @@
+[gd_scene load_steps=2 format=3 uid="uid://ex5f6g7h8i9j0"]
+
+[ext_resource type="Script" path="res://scripts/ui/NoteReader.cs" id="1"]
+[ext_resource type="Theme" uid="uid://bu1c2d3e4f5g6" path="res://resources/ui_theme.tres" id="2_theme"]
+
+[node name="NoteReader" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1")
+
+[node name="BackgroundDarken" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0431373, 0.0392157, 0.0392157, 0.85)
+
+[node name="TopBar" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -400.0
+offset_top = 32.0
+offset_right = 400.0
+offset_bottom = 72.0
+grow_horizontal = 2
+theme_override_constants/separation = 8
+
+[node name="StatusIndicator" type="ColorRect" parent="TopBar"]
+layout_mode = 2
+custom_minimum_size = Vector2(10, 10)
+color = Color(0.545098, 0.117647, 0.117647, 1)
+
+[node name="TitleLabel" type="Label" parent="TopBar"]
+layout_mode = 2
+text = "> DOKUMEN TEMUAN"
+theme_override_font_sizes/font_size = 32
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PaperContainer" type="Panel" parent="CenterContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(600, 400)
+
+[node name="Paper" type="ColorRect" parent="CenterContainer/PaperContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.847059, 0.823529, 0.768627, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PaperContainer/Paper"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
+
+[node name="ContentLabel" type="RichTextLabel" parent="CenterContainer/PaperContainer/Paper/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+fit_content = true
+
+[node name="Footer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -48.0
+offset_right = 100.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ClosePrompt" type="Label" parent="Footer"]
+layout_mode = 2
+text = "[E] TUTUP"
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1

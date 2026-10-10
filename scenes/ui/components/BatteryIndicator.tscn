@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmp_battery_indicator"]
+
+[ext_resource type="Theme" uid="uid://bu1c2d3e4f5g6" path="res://resources/ui_theme.tres" id="theme"]
+[ext_resource type="Script" path="res://scripts/ui/components/BatteryIndicator.cs" id="script"]
+
+[node name="BatteryIndicator" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 110.0
+offset_bottom = 24.0
+theme = ExtResource("theme")
+custom_minimum_size = Vector2(110, 24)
+script = ExtResource("script")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 6
+alignment = 0
+
+[node name="PercentLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "100%"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.243137, 0.486275, 0.694118, 1)
+theme_override_colors/font_outline_color = Color(0.0431373, 0.0431373, 0.0509804, 1)
+theme_override_constants/outline_size = 2
+
+[node name="IconContainer" type="Control" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+custom_minimum_size = Vector2(25, 14)
+
+[node name="Border" type="ColorRect" parent="HBoxContainer/IconContainer"]
+layout_mode = 0
+offset_right = 22.0
+offset_bottom = 14.0
+color = Color(0.227451, 0.227451, 0.25098, 1)
+
+[node name="InnerBg" type="ColorRect" parent="HBoxContainer/IconContainer"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 21.0
+offset_bottom = 13.0
+color = Color(0.0431373, 0.0431373, 0.0509804, 1)
+
+[node name="Fill" type="ColorRect" parent="HBoxContainer/IconContainer/InnerBg"]
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 12.0
+color = Color(0.243137, 0.486275, 0.694118, 1)
+
+[node name="Nub" type="ColorRect" parent="HBoxContainer/IconContainer"]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 4.0
+offset_right = 24.0
+offset_bottom = 10.0
+color = Color(0.227451, 0.227451, 0.25098, 1)
