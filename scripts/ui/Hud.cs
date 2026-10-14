@@ -20,7 +20,7 @@ public partial class Hud : Control
 		_batteryIndicator = GetNode<BatteryIndicator>("BottomLeft/BatteryIndicator");
 		_staminaBar = GetNode<StaminaBar>("BottomLeft/StaminaBar");
 		_interactPrompt = GetNode<InteractPrompt>("PromptContainer/InteractPrompt");
-		_subtitleBox = GetNode<SubtitleBox>("BottomCenter/SubtitleBox");
+		_subtitleBox = GetNodeOrNull<SubtitleBox>("SubtitleLayer/SubtitleBox") ?? GetNodeOrNull<SubtitleBox>("BottomCenter/SubtitleBox");
 		_eventBus = GetNode<EventBus>("/root/EventBus");
 
 		SetupVisualOverlays();
@@ -31,6 +31,12 @@ public partial class Hud : Control
 		_eventBus.SubtitleRequested += OnSubtitleRequested;
 		_eventBus.JasmineScentIntensityChanged += OnJasmineScentIntensityChanged;
 		_eventBus.RetroEffectsToggled += OnRetroEffectsToggled;
+
+		var gameManager = GetNodeOrNull<GameManager>("/root/GameManager");
+		if (gameManager != null)
+		{
+			OnBatteryChanged(gameManager.CurrentBattery);
+		}
 	}
 
 	private void SetupVisualOverlays()
@@ -64,6 +70,7 @@ public partial class Hud : Control
 		}
 
 		AddChild(_retroOverlay);
+		MoveChild(_retroOverlay, 0);
 	}
 
 	private void OnBatteryChanged(float percent)

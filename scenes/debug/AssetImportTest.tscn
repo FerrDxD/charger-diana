@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://asset_import_test"]
+
+[ext_resource type="GLTFDocument" uid="uid://glft_chair_test" path="res://assets/models/furniture/furn_chair_kenney_a.glb" id="1"]
+
+[node name="AssetImportTest" type="Node3D"]
+
+[node name="Chair" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Visual" type="ImportedMesh" parent="Chair"]
+mesh = ExtResource("1")

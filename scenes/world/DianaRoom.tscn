@@ -1,0 +1,111 @@
+[gd_scene load_steps=12 format=3 uid="uid://c_diana_room"]
+
+[ext_resource type="ArrayMesh" uid="uid://c_diana_room_mesh" path="res://assets/models/diana_room.obj" id="1_mesh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape_Floor"]
+size = Vector3(4.2, 0.2, 4.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape_WallNS"]
+size = Vector3(4.2, 2.8, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape_WallEW"]
+size = Vector3(0.2, 2.8, 4.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape_WallDoorSide"]
+size = Vector3(1.6, 2.8, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Bed"]
+size = Vector3(1.5, 0.65, 2.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Desk"]
+size = Vector3(1.25, 0.8, 0.65)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Chair"]
+size = Vector3(0.5, 0.8, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Wardrobe"]
+size = Vector3(0.55, 2.1, 1.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Mirror"]
+size = Vector3(0.15, 1.65, 0.55)
+
+[node name="DianaRoom" type="Node3D"]
+
+[node name="RoomMesh" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_mesh")
+
+[node name="Collisions" type="StaticBody3D" parent="."]
+
+[node name="Col_Floor" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("BoxShape_Floor")
+
+[node name="Col_Ceiling" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9, 0)
+shape = SubResource("BoxShape_Floor")
+
+[node name="Col_WallNorth" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -2.15)
+shape = SubResource("BoxShape_WallNS")
+
+[node name="Col_WallSouthLeft" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3, 1.4, 2.15)
+shape = SubResource("BoxShape_WallDoorSide")
+
+[node name="Col_WallSouthRight" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 1.4, 2.15)
+shape = SubResource("BoxShape_WallDoorSide")
+
+[node name="Col_WallWest" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.15, 1.4, 0)
+shape = SubResource("BoxShape_WallEW")
+
+[node name="Col_WallEast" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15, 1.4, 0)
+shape = SubResource("BoxShape_WallEW")
+
+[node name="Col_Bed" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 0.32, -1.0)
+shape = SubResource("BoxShape_Bed")
+
+[node name="Col_Desk" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0.4, -1.1)
+shape = SubResource("BoxShape_Desk")
+
+[node name="Col_Chair" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0.4, 0.4)
+shape = SubResource("BoxShape_Chair")
+
+[node name="Col_Wardrobe" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.82, 1.05, 0.8)
+shape = SubResource("BoxShape_Wardrobe")
+
+[node name="Col_Mirror" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.95, 0.85, 1.2)
+shape = SubResource("BoxShape_Mirror")
+
+[node name="Lighting" type="Node3D" parent="."]
+
+[node name="CeilingLight" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
+light_color = Color(0.95, 0.9, 0.82, 1)
+light_energy = 0.8
+omni_range = 5.5
+
+[node name="BedsideLamp" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.88, 0.85, -1.75)
+light_color = Color(1, 0.85, 0.65, 1)
+light_energy = 0.4
+omni_range = 2.2
+
+[node name="DeskLamp" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, 1.05, -1.25)
+light_color = Color(0.95, 0.88, 0.75, 1)
+light_energy = 0.5
+omni_range = 2.0
+
+[node name="MoonlightWindow" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 1.6, -1.9)
+light_color = Color(0.4, 0.55, 0.8, 1)
+light_energy = 0.25
+omni_range = 2.5

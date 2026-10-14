@@ -1,0 +1,325 @@
+[gd_scene load_steps=5 format=3 uid="uid://scn_credits"]
+
+[ext_resource type="Script" path="res://scripts/ui/Credits.cs" id="1"]
+[ext_resource type="Theme" uid="uid://bu1c2d3e4f5g6" path="res://resources/ui_theme.tres" id="2_theme"]
+[ext_resource type="FontFile" uid="uid://special_elite_font" path="res://assets/fonts/RockSalt.ttf" id="3_rocksalt"]
+[ext_resource type="PackedScene" uid="uid://cmp_menu_button" path="res://scenes/ui/components/MenuButton.tscn" id="4_menubtn"]
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.043, 0.043, 0.051, 1)
+
+[node name="TopBar" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 32
+
+[node name="HBox" type="HBoxContainer" parent="TopBar"]
+layout_mode = 2
+
+[node name="TitleHint" type="Label" parent="TopBar/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.227, 0.227, 0.251, 1)
+theme_override_font_sizes/font_size = 20
+text = "KREDIT & PENGHARGAAN"
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 50.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(860, 620)
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="CreditsContent" type="VBoxContainer" parent="CenterContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="TopSpacer" type="Control" parent="CenterContainer/ScrollContainer/CreditsContent"]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+
+[node name="GameTitle" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.847, 0.827, 0.769, 1)
+theme_override_fonts/font = ExtResource("3_rocksalt")
+theme_override_font_sizes/font_size = 46
+text = "Charger Diana"
+horizontal_alignment = 1
+
+[node name="Version" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.702, 0.149, 0.118, 1)
+theme_override_font_sizes/font_size = 20
+text = "VERSI 1.0"
+horizontal_alignment = 1
+
+[node name="Tagline" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.45, 0.48, 1)
+theme_override_font_sizes/font_size = 22
+text = "Sebuah Horor First-Person Indonesia"
+horizontal_alignment = 1
+
+[node name="Sep0" type="HSeparator" parent="CenterContainer/ScrollContainer/CreditsContent"]
+custom_minimum_size = Vector2(400, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="SecDev" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.702, 0.149, 0.118, 1)
+theme_override_font_sizes/font_size = 28
+text = "[ PENGEMBANGAN ]"
+horizontal_alignment = 1
+
+[node name="RoleDev1" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.55, 0.58, 1)
+theme_override_font_sizes/font_size = 22
+text = "Desain Game, Pemrograman, & Level Design"
+horizontal_alignment = 1
+
+[node name="NameDev1" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.847, 0.827, 0.769, 1)
+theme_override_font_sizes/font_size = 26
+text = "Maulana Ferdi (FerrDxD)"
+horizontal_alignment = 1
+
+[node name="RoleDev2" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.55, 0.58, 1)
+theme_override_font_sizes/font_size = 22
+text = "Naskah & Narasi"
+horizontal_alignment = 1
+
+[node name="NameDev2" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.847, 0.827, 0.769, 1)
+theme_override_font_sizes/font_size = 26
+text = "Maulana Ferdi"
+horizontal_alignment = 1
+
+[node name="Sep1" type="HSeparator" parent="CenterContainer/ScrollContainer/CreditsContent"]
+custom_minimum_size = Vector2(400, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="SecVo" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.702, 0.149, 0.118, 1)
+theme_override_font_sizes/font_size = 28
+text = "[ PENGISI SUARA ]"
+horizontal_alignment = 1
+
+[node name="DianaRole" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.243, 0.486, 0.694, 1)
+theme_override_font_sizes/font_size = 24
+text = "Diana (Protagonis)"
+horizontal_alignment = 1
+
+[node name="DianaActor" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.847, 0.827, 0.769, 1)
+theme_override_font_sizes/font_size = 24
+text = "Teman Pengembang"
+horizontal_alignment = 1
+
+[node name="OsisRole" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.851, 0.647, 0.125, 1)
+theme_override_font_sizes/font_size = 24
+text = "Patroli OSIS (Cecillia, Adam, Ferdi)"
+horizontal_alignment = 1
+
+[node name="OsisActor" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.847, 0.827, 0.769, 1)
+theme_override_font_sizes/font_size = 24
+text = "Maulana Ferdi"
+horizontal_alignment = 1
+
+[node name="GhostRole" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.702, 0.149, 0.118, 1)
+theme_override_font_sizes/font_size = 24
+text = "Kuntilanak"
+horizontal_alignment = 1
+
+[node name="GhostActor" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.847, 0.827, 0.769, 1)
+theme_override_font_sizes/font_size = 24
+text = "Audio Synthesizer & Procedural FX"
+horizontal_alignment = 1
+
+[node name="Sep2" type="HSeparator" parent="CenterContainer/ScrollContainer/CreditsContent"]
+custom_minimum_size = Vector2(400, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="SecAudio" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.702, 0.149, 0.118, 1)
+theme_override_font_sizes/font_size = 28
+text = "[ AUDIO & SFX ]"
+horizontal_alignment = 1
+
+[node name="AudioDesc" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.847, 0.827, 0.769, 1)
+theme_override_font_sizes/font_size = 22
+text = "Desain Audio & Sistem Suara Prosedural: Maulana Ferdi
+Ambience Malam & Efek Suara: Creative Commons 0 / Domain Publik
+Aransemen: Murni Ambience — Tanpa Musik Berlagu"
+horizontal_alignment = 1
+
+[node name="Sep3" type="HSeparator" parent="CenterContainer/ScrollContainer/CreditsContent"]
+custom_minimum_size = Vector2(400, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="SecAssets" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.702, 0.149, 0.118, 1)
+theme_override_font_sizes/font_size = 28
+text = "[ TIPOGRAFI & LISENSI ]"
+horizontal_alignment = 1
+
+[node name="AssetDesc" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.847, 0.827, 0.769, 1)
+theme_override_font_sizes/font_size = 22
+text = "VT323 — Dibuat oleh Peter Hull (SIL Open Font License)
+Special Elite — Dibuat oleh Astigmatic (SIL Open Font License)
+Rock Salt — Dibuat oleh Sideshow (Apache License 2.0)"
+horizontal_alignment = 1
+
+[node name="Sep4" type="HSeparator" parent="CenterContainer/ScrollContainer/CreditsContent"]
+custom_minimum_size = Vector2(400, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="SecEngine" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.702, 0.149, 0.118, 1)
+theme_override_font_sizes/font_size = 28
+text = "[ TEKNOLOGI ]"
+horizontal_alignment = 1
+
+[node name="EngineDesc" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.847, 0.827, 0.769, 1)
+theme_override_font_sizes/font_size = 22
+text = "Ditenagai oleh Godot Engine 4.x (.NET C#)
+Fisika 3D: Jolt Physics
+Renderer: GL Compatibility"
+horizontal_alignment = 1
+
+[node name="Sep5" type="HSeparator" parent="CenterContainer/ScrollContainer/CreditsContent"]
+custom_minimum_size = Vector2(400, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="SecThanks" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.702, 0.149, 0.118, 1)
+theme_override_font_sizes/font_size = 28
+text = "[ TERIMA KASIH ]"
+horizontal_alignment = 1
+
+[node name="ThanksDesc" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.847, 0.827, 0.769, 1)
+theme_override_font_sizes/font_size = 22
+text = "Seluruh Penguji Coba (Playtesters)
+Komunitas Godot Engine Indonesia
+Dan Kamu, karena telah berani mencari casan malam ini."
+horizontal_alignment = 1
+
+[node name="Sep6" type="HSeparator" parent="CenterContainer/ScrollContainer/CreditsContent"]
+custom_minimum_size = Vector2(400, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Quote" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.702, 0.149, 0.118, 1)
+theme_override_font_sizes/font_size = 24
+text = "\"Jangan pernah tinggalkan barang berhargamu di kelas.\""
+horizontal_alignment = 1
+
+[node name="Copyright" type="Label" parent="CenterContainer/ScrollContainer/CreditsContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.35, 0.38, 1)
+theme_override_font_sizes/font_size = 20
+text = "© 2026 Maulana Ferdi (FerrDxD). Hak Cipta Dilindungi."
+horizontal_alignment = 1
+
+[node name="BottomSpacer" type="Control" parent="CenterContainer/ScrollContainer/CreditsContent"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+
+[node name="BottomBar" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -60.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Margin" type="MarginContainer" parent="BottomBar"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_right = 32
+
+[node name="HBox" type="HBoxContainer" parent="BottomBar/Margin"]
+layout_mode = 2
+alignment = 1
+
+[node name="SpeedHint" type="Label" parent="BottomBar/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.4, 0.4, 0.45, 1)
+theme_override_font_sizes/font_size = 20
+text = "[SPASI / BAWAH] Tahan untuk percepat"
+
+[node name="BtnKembali" parent="BottomBar/Margin/HBox" instance=ExtResource("4_menubtn")]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "[ESC] KEMBALI"
+RawText = "[ESC] KEMBALI"

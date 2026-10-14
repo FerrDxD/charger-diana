@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="PackedScene" path="res://assets/models/prolog/prolog_pillow.glb" id="1_glb"]
+[ext_resource type="Material" path="res://assets/materials/mat_diana_room_atlas.tres" id="2_mat"]
+
+[sub_resource type="BoxShape3D" id="BoxShape_1"]
+size = Vector3(0.7, 0.12, 0.42)
+
+[node name="prolog_pillow" type="Node3D"]
+
+[node name="Visual" type="Node3D" parent="."]
+[node name="prolog_pillow" parent="Visual" instance=ExtResource("1_glb")]
+material_override = ExtResource("2_mat")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0.06, 0.21)
+shape = SubResource("BoxShape_1")

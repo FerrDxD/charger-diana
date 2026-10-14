@@ -122,6 +122,7 @@ public partial class GameManager : Node
 		AddAction("interact", Key.E);
 		AddAction("pause", Key.Escape);
 		AddAction("hold_breath", Key.Space);
+		AddActionAlt("toggle_phone", Key.Tab, Key.M);
 	}
 
 	private static void AddAction(string name, Key key)

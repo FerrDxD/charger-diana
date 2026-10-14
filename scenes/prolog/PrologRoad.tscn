@@ -1,29 +1,64 @@
-[gd_scene load_steps=8 format=3 uid="uid://c_prolog_road"]
+[gd_scene load_steps=16 format=3 uid="uid://c_prolog_road"]
 
 [ext_resource type="Script" path="res://scripts/prolog/PrologRoad.cs" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2_player"]
 [ext_resource type="Script" path="res://scripts/prolog/PrologInteractable.cs" id="3_interact"]
+[ext_resource type="PackedScene" uid="uid://cdj8x7nl5qkvw" path="res://scenes/ui/Hud.tscn" id="4_hud"]
+[ext_resource type="FontFile" uid="uid://vt323_font" path="res://assets/fonts/VT323.ttf" id="5_vt323"]
+[ext_resource type="PackedScene" uid="uid://d3m7h8s2u9q1x" path="res://scenes/interactables/Pickup.tscn" id="6_pickup"]
 
-[sub_resource type="Environment" id="Environment_1"]
+[sub_resource type="Environment" id="Environment_road"]
 background_mode = 1
-background_color = Color(0.01, 0.01, 0.03, 1)
+background_color = Color(0.015, 0.015, 0.025, 1)
 ambient_light_source = 2
-ambient_light_color = Color(0.05, 0.05, 0.1, 1)
+ambient_light_color = Color(0.08, 0.09, 0.12, 1)
 fog_enabled = true
-fog_light_color = Color(0.05, 0.05, 0.1, 1)
-fog_density = 0.05
+fog_light_color = Color(0.025, 0.03, 0.045, 1)
+fog_density = 0.032
+fog_depth_begin = 8.0
+fog_depth_end = 65.0
 
 [sub_resource type="BoxShape3D" id="BoxShape_trigger"]
-size = Vector3(10, 5, 2)
+size = Vector3(8, 4, 2)
 
 [sub_resource type="BoxShape3D" id="BoxShape_gate"]
-size = Vector3(4, 3, 0.5)
+size = Vector3(5.5, 3.5, 0.8)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Asphalt"]
+albedo_color = Color(0.12, 0.12, 0.14, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Mat_Curb"]
+albedo_color = Color(0.24, 0.24, 0.26, 1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Wall"]
+albedo_color = Color(0.26, 0.26, 0.28, 1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Iron"]
+albedo_color = Color(0.09, 0.09, 0.11, 1)
+metallic = 0.85
+roughness = 0.35
+
+[sub_resource type="StandardMaterial3D" id="Mat_Padlock"]
+albedo_color = Color(0.68, 0.58, 0.22, 1)
+metallic = 0.9
+roughness = 0.3
+
+[sub_resource type="StandardMaterial3D" id="Mat_School"]
+albedo_color = Color(0.22, 0.22, 0.25, 1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Window"]
+albedo_color = Color(0.04, 0.05, 0.08, 1)
+roughness = 0.1
+
+[sub_resource type="StandardMaterial3D" id="Mat_Pot"]
+albedo_color = Color(0.42, 0.28, 0.2, 1)
 
 [node name="PrologRoad" type="Node3D"]
 script = ExtResource("1")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_1")
+environment = SubResource("Environment_road")
 
 [node name="Player" parent="." instance=ExtResource("2_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -33,53 +68,183 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 [node name="RoadGeo" type="CSGCombiner3D" parent="Environment"]
 use_collision = true
 
-[node name="Road" type="CSGBox3D" parent="Environment/RoadGeo"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -25)
-size = Vector3(6, 1, 60)
+[node name="AsphaltRoad" type="CSGBox3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -22)
+size = Vector3(5, 0.1, 50)
+material = SubResource("Mat_Asphalt")
 
-[node name="WallLeft" type="CSGBox3D" parent="Environment/RoadGeo"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 2, -25)
-size = Vector3(1, 4, 60)
+[node name="SidewalkLeft" type="CSGBox3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2, 0.05, -22)
+size = Vector3(1.4, 0.2, 50)
+material = SubResource("Mat_Curb")
 
-[node name="WallRight" type="CSGBox3D" parent="Environment/RoadGeo"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 2, -25)
-size = Vector3(1, 4, 60)
+[node name="SidewalkRight" type="CSGBox3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2, 0.05, -22)
+size = Vector3(1.4, 0.2, 50)
+material = SubResource("Mat_Curb")
 
-[node name="StartBlock" type="CSGBox3D" parent="Environment/RoadGeo"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 3)
-size = Vector3(8, 4, 1)
+[node name="RoadWallLeft" type="CSGBox3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, 1.5, -22)
+size = Vector3(0.6, 3.0, 50)
+material = SubResource("Mat_Wall")
 
-[node name="SchoolWall" type="CSGBox3D" parent="Environment/RoadGeo"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -50)
-size = Vector3(20, 6, 1)
+[node name="RoadWallRight" type="CSGBox3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2, 1.5, -22)
+size = Vector3(0.6, 3.0, 50)
+material = SubResource("Mat_Wall")
 
-[node name="GateHole" type="CSGBox3D" parent="Environment/RoadGeo/SchoolWall"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-operation = 2
-size = Vector3(4, 4, 2)
+[node name="StartBarrier" type="CSGBox3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 3)
+size = Vector3(9, 3.0, 0.6)
+material = SubResource("Mat_Wall")
+
+[node name="SchoolFenceLeft" type="CSGBox3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1.7, -44.5)
+size = Vector3(15, 3.4, 0.6)
+material = SubResource("Mat_Wall")
+
+[node name="SchoolFenceRight" type="CSGBox3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1.7, -44.5)
+size = Vector3(15, 3.4, 0.6)
+material = SubResource("Mat_Wall")
+
+[node name="PillarLeft" type="CSGBox3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2, 2.2, -44.5)
+size = Vector3(1.2, 4.4, 1.2)
+material = SubResource("Mat_Wall")
+
+[node name="PillarRight" type="CSGBox3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2, 2.2, -44.5)
+size = Vector3(1.2, 4.4, 1.2)
+material = SubResource("Mat_Wall")
+
+[node name="GateBeam" type="CSGBox3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.2, -44.5)
+size = Vector3(7.6, 0.8, 0.9)
+material = SubResource("Mat_Wall")
+
+[node name="SchoolYard" type="CSGBox3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -58)
+size = Vector3(36, 0.1, 28)
+material = SubResource("Mat_Asphalt")
+
+[node name="PosSatpam" type="CSGBox3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0, 1.5, -47.0)
+size = Vector3(2.8, 3.0, 3.2)
+material = SubResource("Mat_School")
+
+[node name="PosWindow" type="CSGBox3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.55, 1.6, -46.5)
+size = Vector3(0.2, 1.0, 1.2)
+material = SubResource("Mat_Window")
+
+[node name="PosRoof" type="CSGBox3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0, 3.1, -47.0)
+size = Vector3(3.4, 0.2, 3.8)
+material = SubResource("Mat_Wall")
+
+[node name="PotBunga" type="CSGCylinder3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, 0.35, -45.0)
+radius = 0.3
+height = 0.7
+material = SubResource("Mat_Pot")
+
+[node name="PotTanaman" type="CSGBox3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, 0.75, -45.0)
+size = Vector3(0.45, 0.3, 0.45)
+material = SubResource("Mat_Asphalt")
+
+[node name="FlagPole" type="CSGCylinder3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, -53.0)
+radius = 0.08
+height = 7.0
+material = SubResource("Mat_Iron")
+
+[node name="SchoolBuilding" type="CSGBox3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5, -66.0)
+size = Vector3(34, 11, 14)
+material = SubResource("Mat_School")
+
+[node name="LobbyEntranceCut" type="CSGBox3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0, -58.9)
+size = Vector3(4.5, 4.0, 0.5)
+material = SubResource("Mat_Window")
+
+[node name="LobbyStairs" type="CSGBox3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, -58.4)
+size = Vector3(5.5, 0.5, 1.2)
+material = SubResource("Mat_Curb")
+
+[node name="WindowsF1Left" type="CSGBox3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.0, 2.5, -58.9)
+size = Vector3(10, 1.6, 0.2)
+material = SubResource("Mat_Window")
+
+[node name="WindowsF1Right" type="CSGBox3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.0, 2.5, -58.9)
+size = Vector3(10, 1.6, 0.2)
+material = SubResource("Mat_Window")
+
+[node name="WindowsF2" type="CSGBox3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.8, -58.9)
+size = Vector3(28, 1.8, 0.2)
+material = SubResource("Mat_Window")
+
+[node name="RoofParapet" type="CSGBox3D" parent="Environment/RoadGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2, -66.0)
+size = Vector3(34.8, 0.5, 14.8)
+material = SubResource("Mat_Wall")
+
+[node name="SchoolSignLabel" type="Label3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.2, -43.9)
+pixel_size = 0.012
+text = "SMA NEGERI 3"
+font = ExtResource("5_vt323")
+font_size = 48
+outline_size = 8
+modulate = Color(0.85, 0.82, 0.77, 1)
+outline_modulate = Color(0.05, 0.05, 0.06, 1)
 
 [node name="Lamp1" type="OmniLight3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 4, -10)
-light_color = Color(0.9, 0.8, 0.6, 1)
-light_energy = 2.0
-omni_range = 10.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2, 3.8, -12)
+light_color = Color(0.9, 0.82, 0.62, 1)
+light_energy = 2.2
+omni_range = 14.0
+
+[node name="LampPost1" type="CSGCylinder3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2, 1.9, -12)
+radius = 0.06
+height = 3.8
+material = SubResource("Mat_Iron")
 
 [node name="FlickerLamp" type="OmniLight3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 4, -30)
-light_color = Color(0.9, 0.8, 0.6, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2, 3.8, -32)
+light_color = Color(0.85, 0.76, 0.55, 1)
 light_energy = 2.0
-omni_range = 12.0
+omni_range = 14.0
+
+[node name="LampPost2" type="CSGCylinder3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2, 1.9, -32)
+radius = 0.06
+height = 3.8
+material = SubResource("Mat_Iron")
+
+[node name="PosLight" type="OmniLight3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, 2.7, -44.5)
+light_color = Color(0.85, 0.8, 0.65, 1)
+light_energy = 0.6
+omni_range = 5.0
 
 [node name="Triggers" type="Node3D" parent="."]
 
 [node name="StartTrigger" type="Area3D" parent="Triggers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -5)
 
 [node name="Collision" type="CollisionShape3D" parent="Triggers/StartTrigger"]
 shape = SubResource("BoxShape_trigger")
 
 [node name="LampTrigger" type="Area3D" parent="Triggers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -26)
 
 [node name="Collision" type="CollisionShape3D" parent="Triggers/LampTrigger"]
 shape = SubResource("BoxShape_trigger")
@@ -87,14 +252,86 @@ shape = SubResource("BoxShape_trigger")
 [node name="Interactables" type="Node3D" parent="."]
 
 [node name="SchoolGate" type="StaticBody3D" parent="Interactables"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -49.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, -44.5)
 script = ExtResource("3_interact")
 ObjectId = "school_gate"
-PromptText = "Periksa Gerbang Sekolah"
+PromptText = "Coba Buka Gerbang"
 
 [node name="Collision" type="CollisionShape3D" parent="Interactables/SchoolGate"]
 shape = SubResource("BoxShape_gate")
 
-[node name="Mesh" type="CSGBox3D" parent="Interactables/SchoolGate"]
-size = Vector3(4, 3, 0.5)
-material_override = null
+[node name="GateFrameOuter" type="CSGBox3D" parent="Interactables/SchoolGate"]
+size = Vector3(5.2, 3.2, 0.12)
+material = SubResource("Mat_Iron")
+
+[node name="GateHole1" type="CSGBox3D" parent="Interactables/SchoolGate/GateFrameOuter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3, 0, 0)
+operation = 2
+size = Vector3(2.2, 2.8, 0.2)
+
+[node name="GateHole2" type="CSGBox3D" parent="Interactables/SchoolGate/GateFrameOuter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 0, 0)
+operation = 2
+size = Vector3(2.2, 2.8, 0.2)
+
+[node name="Bar1" type="CSGBox3D" parent="Interactables/SchoolGate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9, 0, 0)
+size = Vector3(0.06, 2.8, 0.08)
+material = SubResource("Mat_Iron")
+
+[node name="Bar2" type="CSGBox3D" parent="Interactables/SchoolGate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3, 0, 0)
+size = Vector3(0.06, 2.8, 0.08)
+material = SubResource("Mat_Iron")
+
+[node name="Bar3" type="CSGBox3D" parent="Interactables/SchoolGate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0, 0)
+size = Vector3(0.06, 2.8, 0.08)
+material = SubResource("Mat_Iron")
+
+[node name="Bar4" type="CSGBox3D" parent="Interactables/SchoolGate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0, 0)
+size = Vector3(0.06, 2.8, 0.08)
+material = SubResource("Mat_Iron")
+
+[node name="Bar5" type="CSGBox3D" parent="Interactables/SchoolGate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 0, 0)
+size = Vector3(0.06, 2.8, 0.08)
+material = SubResource("Mat_Iron")
+
+[node name="Bar6" type="CSGBox3D" parent="Interactables/SchoolGate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 0, 0)
+size = Vector3(0.06, 2.8, 0.08)
+material = SubResource("Mat_Iron")
+
+[node name="PadlockChain" type="CSGBox3D" parent="Interactables/SchoolGate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0.06)
+size = Vector3(0.5, 0.12, 0.1)
+material = SubResource("Mat_Iron")
+
+[node name="PadlockBody" type="CSGBox3D" parent="Interactables/SchoolGate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.22, 0.1)
+size = Vector3(0.2, 0.22, 0.08)
+material = SubResource("Mat_Padlock")
+
+[node name="PadlockShackle" type="CSGCylinder3D" parent="Interactables/SchoolGate/PadlockBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 0)
+radius = 0.08
+height = 0.06
+material = SubResource("Mat_Iron")
+
+[node name="GateKey" parent="Interactables" instance=ExtResource("6_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -100, 0)
+visible = false
+ItemId = &"kunci_gerbang_prolog"
+PromptText = "Ambil Kunci Gerbang"
+
+[node name="KeyGlow" type="OmniLight3D" parent="Interactables/GateKey"]
+light_color = Color(1, 0.85, 0.4, 1)
+light_energy = 0.8
+omni_range = 1.5
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 1
+
+[node name="Hud" parent="UI" instance=ExtResource("4_hud")]

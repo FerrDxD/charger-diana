@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c_chapter_1"]
+[gd_scene load_steps=12 format=3 uid="uid://c_chapter_1"]
 
 [ext_resource type="Script" path="res://scripts/core/ChapterController.cs" id="1_script"]
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2_player"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" path="res://scenes/interactables/KeyDoor.tscn" id="6_keydoor"]
 [ext_resource type="PackedScene" uid="uid://c7t8r9s0u1v2w" path="res://scenes/interactables/PowerPanel.tscn" id="7_power"]
 [ext_resource type="PackedScene" path="res://scenes/interactables/NoteReadable.tscn" id="8_note"]
+[ext_resource type="PackedScene" uid="uid://cdj8x7nl5qkvw" path="res://scenes/ui/Hud.tscn" id="9_hud"]
+[ext_resource type="PackedScene" uid="uid://c_school_building" path="res://scenes/world/SchoolBuilding.tscn" id="10_school"]
 
 [sub_resource type="Environment" id="Environment_ch1"]
 background_mode = 1
@@ -36,6 +38,8 @@ script = ExtResource("1_script")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ch1")
+
+[node name="SchoolBuilding" parent="." instance=ExtResource("10_school")]
 
 [node name="Player" parent="." instance=ExtResource("2_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -182,3 +186,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 5.5, -25)
 ItemId = &"baterai_cadangan"
 
 [node name="Enemies" type="Node3D" parent="."]
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 1
+
+[node name="Hud" parent="UI" instance=ExtResource("9_hud")]

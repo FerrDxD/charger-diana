@@ -93,7 +93,14 @@ public partial class MainMenu : Control
 
     private void OnPengaturanPressed()
     {
-        GetTree().ChangeSceneToFile("res://scenes/ui/Settings.tscn");
+        if (_sceneManager != null)
+        {
+            _sceneManager.GoToScene("res://scenes/ui/Settings.tscn");
+        }
+        else
+        {
+            GetTree().ChangeSceneToFile("res://scenes/ui/Settings.tscn");
+        }
     }
 
     private void OnKreditPressed()
@@ -101,6 +108,10 @@ public partial class MainMenu : Control
         if (_sceneManager != null)
         {
             _sceneManager.GoTo(GameFlow.Credits);
+        }
+        else
+        {
+            GetTree().ChangeSceneToFile("res://scenes/ui/Credits.tscn");
         }
     }
 
@@ -113,7 +124,13 @@ public partial class MainMenu : Control
     {
         if (_sceneManager != null)
         {
+            GD.Print("[MainMenu] MULAI -> StartNewGame (PrologRoom)");
             _sceneManager.StartNewGame();
+        }
+        else
+        {
+            GD.PushError("[MainMenu] SceneManager not found, fallback ChangeSceneToFile");
+            GetTree().ChangeSceneToFile("res://scenes/prolog/PrologRoom.tscn");
         }
     }
 }

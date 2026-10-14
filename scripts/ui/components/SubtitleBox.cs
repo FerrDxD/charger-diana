@@ -21,6 +21,8 @@ public partial class SubtitleBox : RichTextLabel
 		ScrollActive = false;
 		Text = "";
 		Visible = false;
+		MouseFilter = MouseFilterEnum.Ignore;
+		ZIndex = 20;
 	}
 
 	/// <summary>Display a subtitle line for the given duration in seconds.</summary>

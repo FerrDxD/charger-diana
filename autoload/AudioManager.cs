@@ -76,11 +76,11 @@ public partial class AudioManager : Node
 			{
 				Stream = stream,
 				Bus = BusSfx,
-				GlobalPosition = position.Value,
 				PitchScale = pitchScale,
 				MaxDistance = SfxMaxDistance
 			};
 			GetTree().Root.AddChild(player3D);
+			player3D.GlobalPosition = position.Value;
 			player3D.Play();
 			player3D.Finished += () => player3D.QueueFree();
 		}
@@ -136,7 +136,8 @@ public partial class AudioManager : Node
 			Speaker = speaker, 
 			SubtitleText = subtitleText, 
 			Radio = isRadio,
-			Stream = LoadOrGenerateStream(voKey, "vo")
+			Stream = LoadOrGenerateStream(voKey, "vo"),
+			Duration = duration
 		};
 		_voPlayer.PitchScale = pitchScale;
 		PlayVo(vo);
@@ -158,17 +159,24 @@ public partial class AudioManager : Node
 
 		_voPlayer.Bus = AudioServer.GetBusIndex(targetBus) >= 0 ? targetBus : BusVo;
 
-		float duration = 2.0f;
+		float duration = vo.Duration > 0 ? vo.Duration : 2.0f;
 		if (vo.Stream != null)
 		{
 			_voPlayer.Stream = vo.Stream;
 			_voPlayer.Play();
 			ApplyDucking(true);
-			duration = (float)vo.Stream.GetLength();
+			float streamLen = (float)vo.Stream.GetLength();
+			// If real audio stream exists (length > 1.0s), use it; otherwise fallback to vo.Duration or text length
+			if (streamLen > 1.0f)
+				duration = streamLen;
+			else if (vo.Duration > 0)
+				duration = vo.Duration;
+			else
+				duration = Mathf.Max(2.5f, (vo.SubtitleText?.Length ?? 0) * 0.06f);
 		}
 		else
 		{
-			duration = Mathf.Max(2.0f, (vo.SubtitleText?.Length ?? 0) * 0.05f);
+			duration = vo.Duration > 0 ? vo.Duration : Mathf.Max(2.5f, (vo.SubtitleText?.Length ?? 0) * 0.06f);
 			GetTree().CreateTimer(duration).Timeout += () => ApplyDucking(false);
 		}
 

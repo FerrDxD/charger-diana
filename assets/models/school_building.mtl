@@ -1,0 +1,90 @@
+# Materials for SMA Negeri 3 School Building
+
+newmtl Mat_WallPlaster
+Kd 0.82 0.80 0.72
+Ks 0.1 0.1 0.1
+Ka 0.2 0.2 0.2
+Ns 10
+d 1.0
+illum 2
+
+newmtl Mat_WallBase
+Kd 0.35 0.38 0.34
+Ks 0.05 0.05 0.05
+Ka 0.2 0.2 0.2
+Ns 5
+d 1.0
+illum 2
+
+newmtl Mat_FloorTiles
+Kd 0.45 0.45 0.43
+Ks 0.2 0.2 0.2
+Ka 0.2 0.2 0.2
+Ns 20
+d 1.0
+illum 2
+
+newmtl Mat_CourtyardPaving
+Kd 0.25 0.25 0.27
+Ks 0.05 0.05 0.05
+Ka 0.2 0.2 0.2
+Ns 5
+d 1.0
+illum 2
+
+newmtl Mat_RoofGenteng
+Kd 0.38 0.22 0.16
+Ks 0.05 0.05 0.05
+Ka 0.2 0.2 0.2
+Ns 5
+d 1.0
+illum 2
+
+newmtl Mat_Wood
+Kd 0.42 0.28 0.18
+Ks 0.1 0.1 0.1
+Ka 0.2 0.2 0.2
+Ns 10
+d 1.0
+illum 2
+
+newmtl Mat_Iron
+Kd 0.18 0.18 0.20
+Ks 0.5 0.5 0.5
+Ka 0.2 0.2 0.2
+Ns 50
+d 1.0
+illum 2
+
+newmtl Mat_Glass
+Kd 0.12 0.16 0.22
+Ks 0.8 0.8 0.8
+Ka 0.2 0.2 0.2
+Ns 90
+d 0.7
+illum 2
+
+newmtl Mat_Sign
+Kd 0.92 0.90 0.85
+Ks 0.1 0.1 0.1
+Ka 0.2 0.2 0.2
+Ns 10
+d 1.0
+illum 2
+
+newmtl Mat_Concrete
+Kd 0.55 0.55 0.53
+Ks 0.08 0.08 0.08
+Ka 0.2 0.2 0.2
+Ns 8
+d 1.0
+illum 2
+
+newmtl Mat_Blackboard
+Kd 0.15 0.22 0.16
+Ks 0.1 0.1 0.1
+Ka 0.2 0.2 0.2
+Ns 15
+d 1.0
+illum 2
+

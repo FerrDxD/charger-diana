@@ -63,16 +63,13 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -400.0
-offset_top = -130.0
+offset_top = -60.0
 offset_right = 400.0
 offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 8
 alignment = 2
-
-[node name="SubtitleBox" parent="BottomCenter" instance=ExtResource("6_subtitle")]
-layout_mode = 2
 
 [node name="KeybindHints" type="HBoxContainer" parent="BottomCenter"]
 layout_mode = 2
@@ -115,3 +112,19 @@ Prefix = "HP"
 
 [node name="StaminaBar" parent="BottomLeft" instance=ExtResource("4_stamina")]
 layout_mode = 2
+
+[node name="SubtitleLayer" type="CanvasLayer" parent="."]
+layer = 20
+
+[node name="SubtitleBox" parent="SubtitleLayer" instance=ExtResource("6_subtitle")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -140.0
+offset_right = 400.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 0

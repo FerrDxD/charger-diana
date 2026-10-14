@@ -6,64 +6,91 @@ public enum GameFlow { Boot, ContentWarning, MainMenu, Prolog, Gameplay, EndingA
 
 public partial class SceneManager : Node
 {
-    private Node _screenFader;
+    private ScreenFader _screenFader;
     public GameFlow CurrentFlow { get; private set; } = GameFlow.Boot;
 
     [Signal]
-    public delegate void FlowChangedEventHandler(int flow); // Using int since custom enums in signals can be tricky in Godot C# without wrappers
+    public delegate void FlowChangedEventHandler(int flow);
 
     public override void _Ready()
     {
-        // Try to instantiate ScreenFader if it doesn't exist
         var faderScene = GD.Load<PackedScene>("res://scenes/ui/components/ScreenFader.tscn");
         if (faderScene != null)
         {
-            _screenFader = faderScene.Instantiate();
-            AddChild(_screenFader);
+            var inst = faderScene.Instantiate();
+            _screenFader = inst as ScreenFader;
+            if (_screenFader != null)
+                AddChild(_screenFader);
+            else
+                AddChild(inst);
+        }
+        // Ensure we survive scene changes (autoload already does, but keep fader alive)
+        ProcessMode = ProcessModeEnum.Always;
+    }
+
+    public void GoTo(GameFlow target)
+    {
+        // Fire-and-forget with error logging — async void loses exceptions otherwise
+        _ = GoToAsync(target);
+    }
+
+    private async Task GoToAsync(GameFlow target)
+    {
+        try
+        {
+            if (_screenFader != null)
+                await _screenFader.FadeIn(0.5f);
+
+            CurrentFlow = target;
+            EmitSignal(SignalName.FlowChanged, (int)target);
+
+            string scenePath = GetScenePathForFlow(target);
+            if (!string.IsNullOrEmpty(scenePath))
+            {
+                var err = GetTree().ChangeSceneToFile(scenePath);
+                if (err != Error.Ok)
+                    GD.PushError($"[SceneManager] ChangeSceneToFile failed: {scenePath} err={err}");
+                else
+                    GD.Print($"[SceneManager] -> {target} : {scenePath}");
+            }
+            // FadeOut must run in new scene tree — defer one frame so new scene's _Ready runs
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+            if (_screenFader != null)
+                await _screenFader.FadeOut(0.5f);
+        }
+        catch (Exception ex)
+        {
+            GD.PushError($"[SceneManager] GoTo({target}) failed: {ex}");
         }
     }
 
-    public async void GoTo(GameFlow target)
+    public void GoToScene(string scenePath)
     {
-        var fader = _screenFader as ScreenFader;
-
-        if (fader != null)
-        {
-            await fader.FadeIn(0.5f);
-        }
-
-        CurrentFlow = target;
-        EmitSignal(SignalName.FlowChanged, (int)target);
-
-        string scenePath = GetScenePathForFlow(target);
-        if (!string.IsNullOrEmpty(scenePath))
-        {
-            GetTree().ChangeSceneToFile(scenePath);
-        }
-
-        if (fader != null)
-        {
-            await fader.FadeOut(0.5f);
-        }
+        _ = GoToSceneAsync(scenePath);
     }
 
-    public async void GoToScene(string scenePath)
+    private async Task GoToSceneAsync(string scenePath)
     {
-        var fader = _screenFader as ScreenFader;
-
-        if (fader != null)
+        try
         {
-            await fader.FadeIn(0.5f);
+            if (_screenFader != null)
+                await _screenFader.FadeIn(0.5f);
+
+            if (!string.IsNullOrEmpty(scenePath))
+            {
+                var err = GetTree().ChangeSceneToFile(scenePath);
+                if (err != Error.Ok)
+                    GD.PushError($"[SceneManager] ChangeSceneToFile failed: {scenePath} err={err}");
+                else
+                    GD.Print($"[SceneManager] -> scene {scenePath}");
+            }
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+            if (_screenFader != null)
+                await _screenFader.FadeOut(0.5f);
         }
-
-        if (!string.IsNullOrEmpty(scenePath))
+        catch (Exception ex)
         {
-            GetTree().ChangeSceneToFile(scenePath);
-        }
-
-        if (fader != null)
-        {
-            await fader.FadeOut(0.5f);
+            GD.PushError($"[SceneManager] GoToScene({scenePath}) failed: {ex}");
         }
     }
 
@@ -85,6 +112,7 @@ public partial class SceneManager : Node
 
     public void StartNewGame()
     {
+        GD.Print("[SceneManager] StartNewGame -> Prolog");
         GoTo(GameFlow.Prolog);
     }
 

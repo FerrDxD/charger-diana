@@ -1,0 +1,182 @@
+[gd_scene load_steps=21 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/props/arch/arch_wall_straight_2m.tscn" id="1_wall_s2"]
+[ext_resource type="PackedScene" path="res://scenes/props/arch/arch_wall_straight_4m.tscn" id="2_wall_s4"]
+[ext_resource type="PackedScene" path="res://scenes/props/arch/arch_wall_corner.tscn" id="3_wall_c"]
+[ext_resource type="PackedScene" path="res://scenes/props/arch/arch_wall_t_2m.tscn" id="4_wall_t"]
+[ext_resource type="PackedScene" path="res://scenes/props/arch/arch_wall_cross_2m.tscn" id="5_wall_x"]
+[ext_resource type="PackedScene" path="res://scenes/props/arch/arch_wall_door_frame_2m.tscn" id="6_wall_door"]
+[ext_resource type="PackedScene" path="res://scenes/props/arch/arch_wall_window_frame_2m.tscn" id="7_wall_win"]
+[ext_resource type="PackedScene" path="res://scenes/props/arch/arch_floor_2m.tscn" id="8_floor"]
+[ext_resource type="PackedScene" path="res://scenes/props/arch/arch_floor_tile_1m.tscn" id="9_floor1"]
+[ext_resource type="PackedScene" path="res://scenes/props/arch/arch_ceiling_2m.tscn" id="10_ceil"]
+[ext_resource type="PackedScene" path="res://scenes/props/arch/arch_pillar_02m.tscn" id="11_pillar02"]
+[ext_resource type="PackedScene" path="res://scenes/props/arch/arch_pillar_04m.tscn" id="12_pillar04"]
+[ext_resource type="PackedScene" path="res://scenes/props/arch/arch_door_leaf_2m.tscn" id="13_door"]
+[ext_resource type="PackedScene" path="res://scenes/props/arch/arch_window_leaf_1m.tscn" id="14_win"]
+[ext_resource type="PackedScene" path="res://scenes/props/arch/arch_stairs_2m.tscn" id="15_stairs"]
+[ext_resource type="PackedScene" path="res://scenes/props/arch/arch_railing_2m.tscn" id="16_railing"]
+[ext_resource type="PackedScene" path="res://scenes/props/arch/arch_fence_2m.tscn" id="17_fence"]
+[ext_resource type="PackedScene" path="res://scenes/props/arch/arch_gate_main_4m.tscn" id="18_gate"]
+[ext_resource type="PackedScene" path="res://scenes/props/arch/arch_cornice_2m.tscn" id="19_cornice"]
+[ext_resource type="PackedScene" path="res://scenes/props/arch/arch_baseboard_2m.tscn" id="20_baseb"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.02, 0.02, 0.03, 1)
+ambient_light_color = Color(0.12, 0.12, 0.14, 1)
+ambient_light_energy = 1.2
+fog_enabled = true
+fog_light_color = Color(0.06, 0.06, 0.08, 1)
+fog_density = 0.02
+
+[node name="LevelModularShowcase" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="ModularKit" type="Node3D" parent="."]
+
+[node name="floor_0" parent="ModularKit" instance=ExtResource("8_floor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="floor_1" parent="ModularKit" instance=ExtResource("8_floor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="floor_2" parent="ModularKit" instance=ExtResource("8_floor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="floor_3" parent="ModularKit" instance=ExtResource("8_floor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
+
+[node name="floor_4" parent="ModularKit" instance=ExtResource("8_floor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="floor_5" parent="ModularKit" instance=ExtResource("8_floor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 2)
+
+[node name="floor_6" parent="ModularKit" instance=ExtResource("8_floor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+
+[node name="floor_7" parent="ModularKit" instance=ExtResource("8_floor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 2)
+
+[node name="ceil_8" parent="ModularKit" instance=ExtResource("10_ceil")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, 0)
+
+[node name="ceil_9" parent="ModularKit" instance=ExtResource("10_ceil")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, 2)
+
+[node name="ceil_10" parent="ModularKit" instance=ExtResource("10_ceil")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3.2, 0)
+
+[node name="ceil_11" parent="ModularKit" instance=ExtResource("10_ceil")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3.2, 2)
+
+[node name="ceil_12" parent="ModularKit" instance=ExtResource("10_ceil")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.2, 0)
+
+[node name="ceil_13" parent="ModularKit" instance=ExtResource("10_ceil")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.2, 2)
+
+[node name="ceil_14" parent="ModularKit" instance=ExtResource("10_ceil")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3.2, 0)
+
+[node name="ceil_15" parent="ModularKit" instance=ExtResource("10_ceil")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3.2, 2)
+
+[node name="wall_s4_16" parent="ModularKit" instance=ExtResource("2_wall_s4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="wall_door_17" parent="ModularKit" instance=ExtResource("6_wall_door")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="wall_s2_18" parent="ModularKit" instance=ExtResource("1_wall_s2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+
+[node name="wall_s4_19" parent="ModularKit" instance=ExtResource("2_wall_s4")]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 4, 0, 4)
+
+[node name="wall_s2_20" parent="ModularKit" instance=ExtResource("1_wall_s2")]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 2, 0, 4)
+
+[node name="wall_win_21" parent="ModularKit" instance=ExtResource("7_wall_win")]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 0, 0, 4)
+
+[node name="wall_s2_22" parent="ModularKit" instance=ExtResource("1_wall_s2")]
+transform = Transform3D(-1.83697e-16, 0, -1, 0, 1, 0, 1, 0, -1.83697e-16, 8, 0, 0)
+
+[node name="wall_s2_23" parent="ModularKit" instance=ExtResource("1_wall_s2")]
+transform = Transform3D(-1.83697e-16, 0, -1, 0, 1, 0, 1, 0, -1.83697e-16, 8, 0, 2)
+
+[node name="wall_s2_24" parent="ModularKit" instance=ExtResource("1_wall_s2")]
+transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, 0, 0, 2)
+
+[node name="wall_s2_25" parent="ModularKit" instance=ExtResource("1_wall_s2")]
+transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, 0, 0, 0)
+
+[node name="wall_t_26" parent="ModularKit" instance=ExtResource("4_wall_t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 2)
+
+[node name="pillar04_27" parent="ModularKit" instance=ExtResource("12_pillar04")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="pillar04_28" parent="ModularKit" instance=ExtResource("12_pillar04")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6, 0, 0)
+
+[node name="pillar04_29" parent="ModularKit" instance=ExtResource("12_pillar04")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.6)
+
+[node name="pillar04_30" parent="ModularKit" instance=ExtResource("12_pillar04")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6, 0, 3.6)
+
+[node name="door_31" parent="ModularKit" instance=ExtResource("13_door")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.05, 0, 0.075)
+
+[node name="win_32" parent="ModularKit" instance=ExtResource("14_win")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, 3.875)
+
+[node name="fence_33" parent="ModularKit" instance=ExtResource("17_fence")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="gate_34" parent="ModularKit" instance=ExtResource("18_gate")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
+
+[node name="fence_35" parent="ModularKit" instance=ExtResource("17_fence")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -2)
+
+[node name="stairs_36" parent="ModularKit" instance=ExtResource("15_stairs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 0)
+
+[node name="railing_37" parent="ModularKit" instance=ExtResource("16_railing")]
+transform = Transform3D(-1.83697e-16, 0, -1, 0, 1, 0, 1, 0, -1.83697e-16, 9, 0, 2)
+
+[node name="baseb_38" parent="ModularKit" instance=ExtResource("20_baseb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.15)
+
+[node name="baseb_39" parent="ModularKit" instance=ExtResource("20_baseb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0.15)
+
+[node name="cornice_40" parent="ModularKit" instance=ExtResource("19_cornice")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="cornice_41" parent="ModularKit" instance=ExtResource("19_cornice")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="Player" type="Node3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.6, 2)
+current = true
+fov = 75.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.7, -0.5, 0.5, 0, 0.7, 0.7, -0.7, -0.5, 0.5, 0, 8, 0)
+light_energy = 0.9
+shadow_enabled = false
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2.8, 2)
+omni_range = 12.0
+light_color = Color(0.9, 0.9, 0.85, 1)
+light_energy = 1.0
+shadow_enabled = false

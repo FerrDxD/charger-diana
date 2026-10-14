@@ -1,0 +1,179 @@
+[gd_scene load_steps=15 format=3 uid="uid://c_school_building"]
+
+[ext_resource type="ArrayMesh" uid="uid://d1g2e3d4u5n6g" path="res://assets/models/school_building.obj" id="1_mesh"]
+[ext_resource type="FontFile" uid="uid://vt323_font" path="res://assets/fonts/VT323.ttf" id="2_font"]
+
+[sub_resource type="BoxShape3D" id="BoxShape_Courtyard"]
+size = Vector3(36, 0.5, 24)
+
+[sub_resource type="BoxShape3D" id="BoxShape_LobbyFloor"]
+size = Vector3(16.2, 0.2, 16.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape_F1CorridorFloor"]
+size = Vector3(20.2, 0.2, 4.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape_F1ElecFloor"]
+size = Vector3(6.2, 0.2, 10.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape_F2Floor"]
+size = Vector3(48, 0.3, 16)
+
+[sub_resource type="BoxShape3D" id="BoxShape_StairSlope"]
+size = Vector3(4.2, 0.4, 3.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape_RailingF2"]
+size = Vector3(43, 1.2, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape_WallLobbySouth"]
+size = Vector3(5, 4, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape_WallLobbyNorth"]
+size = Vector3(16.2, 4, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape_WallLobbyEast"]
+size = Vector3(0.4, 4, 16.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape_WallF1North"]
+size = Vector3(20.2, 4, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape_WallF2North"]
+size = Vector3(46, 4, 0.4)
+
+[node name="SchoolBuilding" type="Node3D"]
+
+[node name="BuildingMesh" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_mesh")
+
+[node name="Collisions" type="StaticBody3D" parent="."]
+
+[node name="Col_Courtyard" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, -7)
+shape = SubResource("BoxShape_Courtyard")
+
+[node name="Col_LobbyFloor" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -25)
+shape = SubResource("BoxShape_LobbyFloor")
+
+[node name="Col_F1CorridorFloor" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.05, -25)
+shape = SubResource("BoxShape_F1CorridorFloor")
+
+[node name="Col_F1ElecFloor" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0.05, -17)
+shape = SubResource("BoxShape_F1ElecFloor")
+
+[node name="Col_F2Floor" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 4.15, -23)
+shape = SubResource("BoxShape_F2Floor")
+
+[node name="Col_Stairs" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, -30, 2.1, -25.5)
+shape = SubResource("BoxShape_StairSlope")
+
+[node name="Col_RailingF2" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 4.9, -20.9)
+shape = SubResource("BoxShape_RailingF2")
+
+[node name="Col_WallLobbySouthLeft" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 2, -16.9)
+shape = SubResource("BoxShape_WallLobbySouth")
+
+[node name="Col_WallLobbySouthRight" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 2, -16.9)
+shape = SubResource("BoxShape_WallLobbySouth")
+
+[node name="Col_WallLobbyNorth" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -33.1)
+shape = SubResource("BoxShape_WallLobbyNorth")
+
+[node name="Col_WallLobbyEast" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.1, 2, -25)
+shape = SubResource("BoxShape_WallLobbyEast")
+
+[node name="Col_WallF1North" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 2, -27.1)
+shape = SubResource("BoxShape_WallF1North")
+
+[node name="Col_WallF2North" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 6.2, -27.1)
+shape = SubResource("BoxShape_WallF2North")
+
+[node name="Signage" type="Node3D" parent="."]
+
+[node name="SignSchoolMonument" type="Label3D" parent="Signage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, -13.24)
+pixel_size = 0.012
+text = "SMA NEGERI 3"
+font = ExtResource("2_font")
+font_size = 54
+outline_size = 6
+modulate = Color(0.12, 0.28, 0.16, 1)
+outline_modulate = Color(0.9, 0.9, 0.88, 1)
+
+[node name="SignRuangOsis" type="Label3D" parent="Signage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.18, -22.86)
+pixel_size = 0.008
+text = "RUANG OSIS"
+font = ExtResource("2_font")
+font_size = 36
+outline_size = 4
+modulate = Color(0.08, 0.15, 0.25, 1)
+
+[node name="SignKelasDiana" type="Label3D" parent="Signage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 7.18, -22.86)
+pixel_size = 0.008
+text = "XI - IPA 2"
+font = ExtResource("2_font")
+font_size = 36
+outline_size = 4
+modulate = Color(0.08, 0.15, 0.25, 1)
+
+[node name="SignLabIpa" type="Label3D" parent="Signage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 7.18, -22.86)
+pixel_size = 0.008
+text = "LABORATORIUM IPA"
+font = ExtResource("2_font")
+font_size = 36
+outline_size = 4
+modulate = Color(0.08, 0.15, 0.25, 1)
+
+[node name="SignPanelListrik" type="Label3D" parent="Signage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 2.92, -21.96)
+pixel_size = 0.008
+text = "PANEL LISTRIK"
+font = ExtResource("2_font")
+font_size = 36
+outline_size = 4
+modulate = Color(0.8, 0.2, 0.1, 1)
+
+[node name="AtmosphereLighting" type="Node3D" parent="."]
+
+[node name="CourtyardLamp" type="OmniLight3D" parent="AtmosphereLighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, -12)
+light_color = Color(0.85, 0.82, 0.7, 1)
+light_energy = 1.2
+omni_range = 16.0
+
+[node name="LobbyChandelier" type="OmniLight3D" parent="AtmosphereLighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, -25)
+light_color = Color(0.75, 0.8, 0.9, 1)
+light_energy = 1.0
+omni_range = 14.0
+
+[node name="CorridorF1Light" type="OmniLight3D" parent="AtmosphereLighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 3.2, -25)
+light_color = Color(0.7, 0.78, 0.85, 1)
+light_energy = 0.9
+omni_range = 12.0
+
+[node name="StairsLight" type="OmniLight3D" parent="AtmosphereLighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, 3.8, -25.5)
+light_color = Color(0.8, 0.75, 0.6, 1)
+light_energy = 0.8
+omni_range = 8.0
+
+[node name="CorridorF2Light" type="OmniLight3D" parent="AtmosphereLighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 7.2, -23)
+light_color = Color(0.65, 0.7, 0.85, 1)
+light_energy = 0.8
+omni_range = 16.0

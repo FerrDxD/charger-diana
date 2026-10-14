@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://ef5g6h7i8j9k0"]
+[gd_scene load_steps=3 format=3 uid="uid://ef5g6h7i8j9k0"]
 
-[ext_resource type="Script" path="res://scripts/ui/Settings.cs" id="1"]
+[ext_resource type="Script" path="res://scripts/ui/Settings.cs" id="1_script"]
 [ext_resource type="Theme" uid="uid://bu1c2d3e4f5g6" path="res://resources/ui_theme.tres" id="2_theme"]
 
 [node name="Settings" type="Control"]
@@ -11,7 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_theme")
-script = ExtResource("1")
+script = ExtResource("1_script")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -20,193 +20,347 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.043137, 0.0392157, 0.0392157, 1)
+color = Color(0.0431373, 0.0392157, 0.0392157, 1)
 
-[node name="MainContainer" type="VBoxContainer" parent="."]
+[node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 16
-
-[node name="Header" type="HBoxContainer" parent="MainContainer"]
-layout_mode = 2
-theme_override_constants/separation = 16
-
-[node name="SystemInfo" type="HBoxContainer" parent="MainContainer/Header"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="SysConfigLabel" type="Label" parent="MainContainer/Header/SystemInfo"]
-layout_mode = 2
-text = "[SYS.CONFIG]"
-theme_override_colors/font_color = Color(0.545098, 0.117647, 0.117647, 1)
-theme_override_font_sizes/font_size = 18
-
-[node name="VersionLabel" type="Label" parent="MainContainer/Header/SystemInfo"]
-layout_mode = 2
-text = "CHARGER DIANA :: v0.9.1-RELEASE"
-theme_override_font_sizes/font_size = 18
-
-[node name="Spacer" type="Control" parent="MainContainer/Header"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="TimeInfo" type="HBoxContainer" parent="MainContainer/Header"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="TimeLabel" type="Label" parent="MainContainer/Header/TimeInfo"]
-layout_mode = 2
-text = "WAKTU: 23:48:19 WIB"
-theme_override_colors/font_color = Color(0.623529, 0.721569, 0.784314, 1)
-theme_override_font_sizes/font_size = 18
-
-[node name="MemoryLabel" type="Label" parent="MainContainer/Header/TimeInfo"]
-layout_mode = 2
-text = "MEMORI: 1024KB [OK]"
-theme_override_colors/font_color = Color(0.788235, 0.635294, 0.152941, 1)
-theme_override_font_sizes/font_size = 18
-
-[node name="SettingsPanel" type="CenterContainer" parent="MainContainer"]
-layout_mode = 2
-custom_minimum_size = Vector2(0, 400)
-
-[node name="Panel" type="Panel" parent="MainContainer/SettingsPanel"]
-layout_mode = 2
-custom_minimum_size = Vector2(600, 0)
-
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer/SettingsPanel/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 24
+theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 24
-theme_override_constants/margin_right = 24
+theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 24
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/SettingsPanel/Panel/MarginContainer"]
+[node name="MainVBox" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Header" type="HBoxContainer" parent="Margin/MainVBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SysConfigLabel" type="Label" parent="Margin/MainVBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.545098, 0.117647, 0.117647, 1)
+theme_override_font_sizes/font_size = 20
+text = "[SYS.CONFIG]"
+
+[node name="VersionLabel" type="Label" parent="Margin/MainVBox/Header"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "CHARGER DIANA :: v0.9.1-RELEASE"
+
+[node name="Divider1" type="Label" parent="Margin/MainVBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.243137, 0.290196, 0.227451, 1)
+theme_override_font_sizes/font_size = 20
+text = "|"
+
+[node name="LocationLabel" type="Label" parent="Margin/MainVBox/Header"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "SMAN 13 MALAM HARI"
+
+[node name="HeaderSpacer" type="Control" parent="Margin/MainVBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ClockLabel" type="Label" parent="Margin/MainVBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.623529, 0.721569, 0.784314, 1)
+theme_override_font_sizes/font_size = 20
+text = "WAKTU: 23:48:19 WIB"
+
+[node name="Divider2" type="Label" parent="Margin/MainVBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.243137, 0.290196, 0.227451, 1)
+theme_override_font_sizes/font_size = 20
+text = "|"
+
+[node name="MemoryLabel" type="Label" parent="Margin/MainVBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.788235, 0.635294, 0.152941, 1)
+theme_override_font_sizes/font_size = 20
+text = "MEMORI: 1024KB [OK]"
+
+[node name="CenterWrap" type="CenterContainer" parent="Margin/MainVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SettingsCard" type="PanelContainer" parent="Margin/MainVBox/CenterWrap"]
+custom_minimum_size = Vector2(860, 520)
+layout_mode = 2
+
+[node name="CardMargin" type="MarginContainer" parent="Margin/MainVBox/CenterWrap/SettingsCard"]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 20
+
+[node name="CardVBox" type="VBoxContainer" parent="Margin/MainVBox/CenterWrap/SettingsCard/CardMargin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TitleBar" type="HBoxContainer" parent="Margin/MainVBox/CenterWrap/SettingsCard/CardMargin/CardVBox"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="TitleBar" type="HBoxContainer" parent="MainContainer/SettingsPanel/Panel/MarginContainer/VBoxContainer"]
+[node name="HashLabel" type="Label" parent="Margin/MainVBox/CenterWrap/SettingsCard/CardMargin/CardVBox/TitleBar"]
 layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="HashLabel" type="Label" parent="MainContainer/SettingsPanel/Panel/MarginContainer/VBoxContainer/TitleBar"]
-layout_mode = 2
-text = "#"
 theme_override_colors/font_color = Color(0.545098, 0.117647, 0.117647, 1)
 theme_override_font_sizes/font_size = 28
+text = "#"
 
-[node name="TitleLabel" type="Label" parent="MainContainer/SettingsPanel/Panel/MarginContainer/VBoxContainer/TitleBar"]
+[node name="TitleLabel" type="Label" parent="Margin/MainVBox/CenterWrap/SettingsCard/CardMargin/CardVBox/TitleBar"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 28
 text = "PENGATURAN SISTEM"
-theme_override_font_sizes/font_size = 32
 
-[node name="Spacer2" type="Control" parent="MainContainer/SettingsPanel/Panel/MarginContainer/VBoxContainer/TitleBar"]
+[node name="TitleSpacer" type="Control" parent="Margin/MainVBox/CenterWrap/SettingsCard/CardMargin/CardVBox/TitleBar"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TerminalId" type="Label" parent="MainContainer/SettingsPanel/Panel/MarginContainer/VBoxContainer/TitleBar"]
+[node name="TerminalId" type="Label" parent="Margin/MainVBox/CenterWrap/SettingsCard/CardMargin/CardVBox/TitleBar"]
 layout_mode = 2
-text = "TERMINAL MENU ID: 0x56"
 theme_override_colors/font_color = Color(0.243137, 0.290196, 0.227451, 1)
 theme_override_font_sizes/font_size = 18
+text = "TERMINAL MENU ID: 0x56"
 
-[node name="SettingsContainer" type="VBoxContainer" parent="MainContainer/SettingsPanel/Panel/MarginContainer/VBoxContainer"]
+[node name="TopDivider" type="ColorRect" parent="Margin/MainVBox/CenterWrap/SettingsCard/CardMargin/CardVBox"]
+custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
-theme_override_constants/separation = 4
+color = Color(0.243137, 0.290196, 0.227451, 1)
 
-[node name="Row0" type="Button" parent="MainContainer/SettingsPanel/Panel/MarginContainer/VBoxContainer/SettingsContainer"]
-layout_mode = 2
-text = "VOLUME UTAMA|■■■■■■■■□□|80%"
-theme_override_font_sizes/font_size = 24
-
-[node name="Row1" type="Button" parent="MainContainer/SettingsPanel/Panel/MarginContainer/VBoxContainer/SettingsContainer"]
-layout_mode = 2
-text = "VOLUME SUARA (SFX)|■■■■■■■□□□|70%"
-theme_override_font_sizes/font_size = 24
-
-[node name="Row2" type="Button" parent="MainContainer/SettingsPanel/Panel/MarginContainer/VBoxContainer/SettingsContainer"]
-layout_mode = 2
-text = "VOLUME AMBIENCE / MUSIK|■■■■■■□□□□|60%"
-theme_override_font_sizes/font_size = 24
-
-[node name="Row3" type="Button" parent="MainContainer/SettingsPanel/Panel/MarginContainer/VBoxContainer/SettingsContainer"]
-layout_mode = 2
-text = "SUBTITLE INDONESIA|[ AKTIF ]  MATI"
-theme_override_font_sizes/font_size = 24
-
-[node name="Row4" type="Button" parent="MainContainer/SettingsPanel/Panel/MarginContainer/VBoxContainer/SettingsContainer"]
-layout_mode = 2
-text = "KECERAHAN (GAMMA)|■■■■□□□□□□|40%"
-theme_override_font_sizes/font_size = 24
-
-[node name="Row5" type="Button" parent="MainContainer/SettingsPanel/Panel/MarginContainer/VBoxContainer/SettingsContainer"]
-layout_mode = 2
-text = "EFEK RETRO (CRT & DITHER)|[ AKTIF ]  MATI"
-theme_override_font_sizes/font_size = 24
-
-[node name="Row6" type="Button" parent="MainContainer/SettingsPanel/Panel/MarginContainer/VBoxContainer/SettingsContainer"]
-layout_mode = 2
-text = "TAMPILAN LAYAR|< LAYAR PENUH (1080p) >"
-theme_override_font_sizes/font_size = 24
-
-[node name="Row7" type="Button" parent="MainContainer/SettingsPanel/Panel/MarginContainer/VBoxContainer/SettingsContainer"]
-layout_mode = 2
-text = "KONFIGURASI KONTROL|[ TEKAN ENTER UNTUK MELIHAT ]"
-theme_override_font_sizes/font_size = 24
-
-[node name="TipsPanel" type="HBoxContainer" parent="MainContainer/SettingsPanel/Panel/MarginContainer/VBoxContainer"]
+[node name="CategoryBar" type="HBoxContainer" parent="Margin/MainVBox/CenterWrap/SettingsCard/CardMargin/CardVBox"]
 layout_mode = 2
 theme_override_constants/separation = 16
+alignment = 1
 
-[node name="TipsLabel" type="Label" parent="MainContainer/SettingsPanel/Panel/MarginContainer/VBoxContainer/TipsPanel"]
+[node name="Tab0" type="Button" parent="Margin/MainVBox/CenterWrap/SettingsCard/CardMargin/CardVBox/CategoryBar"]
 layout_mode = 2
-text = "[TIPS NAVIGASI]"
+theme_override_font_sizes/font_size = 22
+text = "[ 1. SUARA / AUDIO ]"
+flat = true
+
+[node name="Tab1" type="Button" parent="Margin/MainVBox/CenterWrap/SettingsCard/CardMargin/CardVBox/CategoryBar"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "[ 2. GRAFIS & EFEK ]"
+flat = true
+
+[node name="Tab2" type="Button" parent="Margin/MainVBox/CenterWrap/SettingsCard/CardMargin/CardVBox/CategoryBar"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "[ 3. KONTROL & TEKS ]"
+flat = true
+
+[node name="MidDivider" type="ColorRect" parent="Margin/MainVBox/CenterWrap/SettingsCard/CardMargin/CardVBox"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.243137, 0.290196, 0.227451, 1)
+
+[node name="RowsContainer" type="VBoxContainer" parent="Margin/MainVBox/CenterWrap/SettingsCard/CardMargin/CardVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+
+[node name="BottomDivider" type="ColorRect" parent="Margin/MainVBox/CenterWrap/SettingsCard/CardMargin/CardVBox"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.243137, 0.290196, 0.227451, 1)
+
+[node name="HintContainer" type="HBoxContainer" parent="Margin/MainVBox/CenterWrap/SettingsCard/CardMargin/CardVBox"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HintTag" type="Label" parent="Margin/MainVBox/CenterWrap/SettingsCard/CardMargin/CardVBox/HintContainer"]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.545098, 0.117647, 0.117647, 1)
 theme_override_font_sizes/font_size = 18
+text = "[INFO]"
 
-[node name="TipsText" type="Label" parent="MainContainer/SettingsPanel/Panel/MarginContainer/VBoxContainer/TipsPanel"]
+[node name="HintLabel" type="Label" parent="Margin/MainVBox/CenterWrap/SettingsCard/CardMargin/CardVBox/HintContainer"]
 layout_mode = 2
-text = "W,A,S,D: Gerak | SHIFT: Lari | F: Senter HP | SPASI: Tahan Napas | E: Ambil"
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.847059, 0.823529, 0.768627, 1)
 theme_override_font_sizes/font_size = 18
+text = "Pilih pengaturan untuk melihat detail."
 
-[node name="Footer" type="HBoxContainer" parent="MainContainer"]
+[node name="Footer" type="HBoxContainer" parent="Margin/MainVBox"]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="NavHints" type="HBoxContainer" parent="MainContainer/Footer"]
+[node name="NavHints" type="HBoxContainer" parent="Margin/MainVBox/Footer"]
 layout_mode = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 12
 
-[node name="HintNav" type="Label" parent="MainContainer/Footer/NavHints"]
+[node name="HintCategory" type="Label" parent="Margin/MainVBox/Footer/NavHints"]
 layout_mode = 2
-text = "[W / S] PILIH OPSI"
+theme_override_colors/font_color = Color(0.545098, 0.117647, 0.117647, 1)
 theme_override_font_sizes/font_size = 18
+text = "[Q / E]"
 
-[node name="HintAdjust" type="Label" parent="MainContainer/Footer/NavHints"]
+[node name="HintCategoryText" type="Label" parent="Margin/MainVBox/Footer/NavHints"]
 layout_mode = 2
-text = "[A / D] ATUR NILAI"
 theme_override_font_sizes/font_size = 18
+text = "KATEGORI"
 
-[node name="HintConfirm" type="Label" parent="MainContainer/Footer/NavHints"]
+[node name="HintSep1" type="Label" parent="Margin/MainVBox/Footer/NavHints"]
 layout_mode = 2
-text = "[ENTER] KONFIRMASI"
+theme_override_colors/font_color = Color(0.243137, 0.290196, 0.227451, 1)
 theme_override_font_sizes/font_size = 18
+text = "::"
 
-[node name="Spacer3" type="Control" parent="MainContainer/Footer"]
+[node name="HintSelect" type="Label" parent="Margin/MainVBox/Footer/NavHints"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.545098, 0.117647, 0.117647, 1)
+theme_override_font_sizes/font_size = 18
+text = "[W / S]"
+
+[node name="HintSelectText" type="Label" parent="Margin/MainVBox/Footer/NavHints"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "PILIH OPSI"
+
+[node name="HintSep2" type="Label" parent="Margin/MainVBox/Footer/NavHints"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.243137, 0.290196, 0.227451, 1)
+theme_override_font_sizes/font_size = 18
+text = "::"
+
+[node name="HintAdjust" type="Label" parent="Margin/MainVBox/Footer/NavHints"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.545098, 0.117647, 0.117647, 1)
+theme_override_font_sizes/font_size = 18
+text = "[A / D]"
+
+[node name="HintAdjustText" type="Label" parent="Margin/MainVBox/Footer/NavHints"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "ATUR NILAI"
+
+[node name="HintSep3" type="Label" parent="Margin/MainVBox/Footer/NavHints"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.243137, 0.290196, 0.227451, 1)
+theme_override_font_sizes/font_size = 18
+text = "::"
+
+[node name="HintEnter" type="Label" parent="Margin/MainVBox/Footer/NavHints"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.545098, 0.117647, 0.117647, 1)
+theme_override_font_sizes/font_size = 18
+text = "[ENTER]"
+
+[node name="HintEnterText" type="Label" parent="Margin/MainVBox/Footer/NavHints"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "KONFIRMASI"
+
+[node name="FooterSpacer" type="Control" parent="Margin/MainVBox/Footer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="BackLabel" type="Label" parent="MainContainer/Footer"]
+[node name="BtnBack" type="Button" parent="Margin/MainVBox/Footer"]
 layout_mode = 2
-text = "[ESC / BACKSPACE] KEMBALI KE MENU UTAMA"
 theme_override_colors/font_color = Color(0.788235, 0.635294, 0.152941, 1)
+theme_override_colors/font_hover_color = Color(0.545098, 0.117647, 0.117647, 1)
 theme_override_font_sizes/font_size = 18
+text = "[ESC / BACKSPACE] KEMBALI KE MENU UTAMA"
+flat = true
+
+[node name="ControlModal" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0431373, 0.0392157, 0.0392157, 0.95)
+
+[node name="ModalCenter" type="CenterContainer" parent="ControlModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ModalPanel" type="PanelContainer" parent="ControlModal/ModalCenter"]
+custom_minimum_size = Vector2(580, 380)
+layout_mode = 2
+
+[node name="ModalMargin" type="MarginContainer" parent="ControlModal/ModalCenter/ModalPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 24
+
+[node name="ModalVBox" type="VBoxContainer" parent="ControlModal/ModalCenter/ModalPanel/ModalMargin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ModalTitle" type="Label" parent="ControlModal/ModalCenter/ModalPanel/ModalMargin/ModalVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.545098, 0.117647, 0.117647, 1)
+theme_override_font_sizes/font_size = 26
+text = "[ KONFIGURASI KONTROL ]"
+horizontal_alignment = 1
+
+[node name="ModalDivider" type="ColorRect" parent="ControlModal/ModalCenter/ModalPanel/ModalMargin/ModalVBox"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.243137, 0.290196, 0.227451, 1)
+
+[node name="KeyList" type="VBoxContainer" parent="ControlModal/ModalCenter/ModalPanel/ModalMargin/ModalVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="Key0" type="Label" parent="ControlModal/ModalCenter/ModalPanel/ModalMargin/ModalVBox/KeyList"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "  W, A, S, D     : BERJALAN"
+
+[node name="Key1" type="Label" parent="ControlModal/ModalCenter/ModalPanel/ModalMargin/ModalVBox/KeyList"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "  SHIFT (HOLD)   : LARI CEPAT (KONSUMSI STAMINA)"
+
+[node name="Key2" type="Label" parent="ControlModal/ModalCenter/ModalPanel/ModalMargin/ModalVBox/KeyList"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "  F              : SENTER HP (KONSUMSI BATERAI)"
+
+[node name="Key3" type="Label" parent="ControlModal/ModalCenter/ModalPanel/ModalMargin/ModalVBox/KeyList"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "  SPASI (HOLD)   : TAHAN NAPAS (SAAT SEMBUNYI)"
+
+[node name="Key4" type="Label" parent="ControlModal/ModalCenter/ModalPanel/ModalMargin/ModalVBox/KeyList"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "  E              : INTERAKSI / AMBIL CASAN"
+
+[node name="Key5" type="Label" parent="ControlModal/ModalCenter/ModalPanel/ModalMargin/ModalVBox/KeyList"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "  ESC            : MENU JEDA (PAUSE)"
+
+[node name="ModalDivider2" type="ColorRect" parent="ControlModal/ModalCenter/ModalPanel/ModalMargin/ModalVBox"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.243137, 0.290196, 0.227451, 1)
+
+[node name="BtnCloseModal" type="Button" parent="ControlModal/ModalCenter/ModalPanel/ModalMargin/ModalVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.788235, 0.635294, 0.152941, 1)
+theme_override_font_sizes/font_size = 20
+text = "[ TEKAN ENTER / ESC UNTUK TUTUP ]"
+flat = true

@@ -1,0 +1,443 @@
+import pathlib
+
+# Rewrite PrologRoom and DianaRoomSlice to use CSG + atlas texture instead of GLB
+# This fixes black room (GLB not yet imported to .scn) while preserving modular visual
+# CSGBox materials will use StandardMaterial3D with atlas texture
+
+prolog_path = pathlib.Path(r"C:\Users\Hype GLK\charger-diana\scenes\prolog\PrologRoom.tscn")
+slice_path = pathlib.Path(r"C:\Users\Hype GLK\charger-diana\scenes\level\DianaRoomSlice.tscn")
+
+# Create a fixed version: replace GLB Shell with CSGBox shell using atlas material
+# Keep furniture GLBs? No - replace all with CSG for now to guarantee not black
+# Use the detailed CSG from before (we have backup in git HEAD plus our improvements)
+
+csx = r'''[gd_scene load_steps=14 format=3 uid="uid://c_prolog_room"]
+
+[ext_resource type="Script" path="res://scripts/prolog/PrologRoom.cs" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://scenes/prolog/PrologChatUi.tscn" id="3_chat"]
+[ext_resource type="Script" path="res://scripts/prolog/PrologInteractable.cs" id="4_interact"]
+[ext_resource type="PackedScene" uid="uid://cdj8x7nl5qkvw" path="res://scenes/ui/Hud.tscn" id="5_hud"]
+[ext_resource type="Theme" uid="uid://bu1c2d3e4f5g6" path="res://resources/ui_theme.tres" id="6_theme"]
+[ext_resource type="Texture2D" uid="uid://atlas_diana_room_tex" path="res://assets/textures/atlas/atlas_diana_room.png" id="7_atlas"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.015, 0.015, 0.025, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.22, 0.22, 0.26, 1)
+ambient_light_energy = 2.2
+
+[sub_resource type="StandardMaterial3D" id="Mat_Wall"]
+albedo_texture = ExtResource("7_atlas")
+albedo_color = Color(1, 1, 1, 1)
+roughness = 0.92
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="Mat_Floor"]
+albedo_texture = ExtResource("7_atlas")
+albedo_color = Color(1, 1, 1, 1)
+roughness = 0.96
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="Mat_Oak"]
+albedo_texture = ExtResource("7_atlas")
+albedo_color = Color(1, 1, 1, 1)
+roughness = 0.9
+texture_filter = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bag"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_drawer"]
+size = Vector3(0.5, 0.3, 0.35)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jacket"]
+size = Vector3(0.5, 1.0, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_chair_back"]
+size = Vector3(0.04, 0.32, 0.44)
+
+[sub_resource type="StandardMaterial3D" id="Mat_AccentWall"]
+albedo_color = Color(0.82, 0.78, 0.72, 1)
+roughness = 0.9
+texture_filter = 0
+
+[node name="PrologRoom" type="Node3D"]
+script = ExtResource("1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="RoomLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)
+light_color = Color(0.98, 0.94, 0.88, 1)
+light_energy = 2.2
+omni_range = 7.0
+shadow_enabled = false
+
+[node name="PhoneGlow" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0.9, -1.1)
+light_color = Color(0.5, 0.7, 0.95, 1)
+light_energy = 1.0
+omni_range = 2.5
+shadow_enabled = false
+
+[node name="DeskLampLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.15, -1.7)
+light_color = Color(1, 0.92, 0.8, 1)
+light_energy = 1.2
+omni_range = 2.5
+shadow_enabled = false
+
+[node name="BedsideLampLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.55, -1.7)
+light_color = Color(1, 0.88, 0.7, 1)
+light_energy = 1.0
+omni_range = 2.5
+shadow_enabled = false
+
+[node name="Shell" type="Node3D" parent="."]
+
+[node name="Floor_A" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.04, -1)
+size = Vector3(2, 0.08, 2)
+material = SubResource("Mat_Floor")
+use_collision = true
+
+[node name="Floor_B" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.04, -1)
+size = Vector3(2, 0.08, 2)
+material = SubResource("Mat_Floor")
+use_collision = true
+
+[node name="Floor_C" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.04, 1)
+size = Vector3(2, 0.08, 2)
+material = SubResource("Mat_Floor")
+use_collision = true
+
+[node name="Floor_D" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.04, 1)
+size = Vector3(2, 0.08, 2)
+material = SubResource("Mat_Floor")
+use_collision = true
+
+[node name="Ceiling_A" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2.84, -1)
+size = Vector3(2, 0.08, 2)
+material = SubResource("Mat_Wall")
+use_collision = false
+
+[node name="Ceiling_B" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2.84, -1)
+size = Vector3(2, 0.08, 2)
+material = SubResource("Mat_Wall")
+use_collision = false
+
+[node name="Ceiling_C" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2.84, 1)
+size = Vector3(2, 0.08, 2)
+material = SubResource("Mat_Wall")
+use_collision = false
+
+[node name="Ceiling_D" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2.84, 1)
+size = Vector3(2, 0.08, 2)
+material = SubResource("Mat_Wall")
+use_collision = false
+
+[node name="WallNorth_Left" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1.4, -2.06)
+size = Vector3(0.96, 2.8, 0.12)
+material = SubResource("Mat_Wall")
+use_collision = true
+
+[node name="WallNorth_WindowSill" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22, 0.52, -2.06)
+size = Vector3(1.4, 1.05, 0.12)
+material = SubResource("Mat_Wall")
+use_collision = true
+
+[node name="WallNorth_Right" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 1.4, -2.06)
+size = Vector3(1.4, 2.8, 0.12)
+material = SubResource("Mat_Wall")
+use_collision = true
+
+[node name="WallNorth_Top" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22, 2.38, -2.06)
+size = Vector3(1.4, 0.85, 0.12)
+material = SubResource("Mat_Wall")
+use_collision = true
+
+[node name="WindowGlass" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22, 1.55, -2.02)
+size = Vector3(1.28, 1.0, 0.02)
+material = SubResource("Mat_Wall")
+use_collision = false
+
+[node name="WallEast" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.06, 1.4, 0)
+size = Vector3(0.12, 2.8, 4)
+material = SubResource("Mat_Wall")
+use_collision = true
+
+[node name="WallSouth_Left" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.45, 1.4, 2.06)
+size = Vector3(1.1, 2.8, 0.12)
+material = SubResource("Mat_Wall")
+use_collision = true
+
+[node name="WallSouth_Top" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, 2.45, 2.06)
+size = Vector3(1.1, 0.7, 0.12)
+material = SubResource("Mat_Wall")
+use_collision = true
+
+[node name="WallSouth_Right" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 1.4, 2.06)
+size = Vector3(2.6, 2.8, 0.12)
+material = SubResource("Mat_Wall")
+use_collision = true
+
+[node name="DoorLeaf" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.65, 1.02, 1.98)
+size = Vector3(0.9, 2.05, 0.05)
+material = SubResource("Mat_Wall")
+use_collision = true
+
+[node name="WallWest" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.06, 1.4, 0)
+size = Vector3(0.12, 2.8, 4)
+material = SubResource("Mat_Wall")
+use_collision = true
+
+[node name="Rug" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.09, -0.3)
+size = Vector3(2, 0.02, 1.7)
+material = SubResource("Mat_Floor")
+use_collision = false
+
+[node name="Furniture" type="Node3D" parent="."]
+
+[node name="BedFrame" type="CSGBox3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35, 0.18, -1.35)
+size = Vector3(1.5, 0.2, 2.1)
+material = SubResource("Mat_Oak")
+use_collision = true
+
+[node name="Mattress" type="CSGBox3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35, 0.38, -1.35)
+size = Vector3(1.38, 0.2, 1.95)
+material = SubResource("Mat_Wall")
+use_collision = false
+
+[node name="Duvet" type="CSGBox3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35, 0.55, -1.05)
+size = Vector3(1.38, 0.12, 1.15)
+material = SubResource("Mat_Wall")
+use_collision = false
+
+[node name="PillowA" type="CSGBox3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35, 0.62, -1.95)
+size = Vector3(0.7, 0.12, 0.42)
+material = SubResource("Mat_Wall")
+use_collision = false
+
+[node name="PillowB" type="CSGBox3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 0.62, -1.65)
+size = Vector3(0.42, 0.1, 0.65)
+material = SubResource("Mat_Wall")
+use_collision = false
+
+[node name="Nightstand" type="CSGBox3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.3, -1.75)
+size = Vector3(0.4, 0.5, 0.42)
+material = SubResource("Mat_Oak")
+use_collision = true
+
+[node name="DeskTop" type="CSGBox3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35, 0.71, -1.55)
+size = Vector3(1.25, 0.06, 0.65)
+material = SubResource("Mat_Oak")
+use_collision = true
+
+[node name="DeskLeg1" type="CSGBox3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.36, -1.3)
+size = Vector3(0.04, 0.68, 0.04)
+material = SubResource("Mat_AccentWall")
+use_collision = false
+
+[node name="DeskLeg2" type="CSGBox3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 0.36, -1.3)
+size = Vector3(0.04, 0.68, 0.04)
+material = SubResource("Mat_AccentWall")
+use_collision = false
+
+[node name="DeskLeg3" type="CSGBox3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.36, -1.8)
+size = Vector3(0.04, 0.68, 0.04)
+material = SubResource("Mat_AccentWall")
+use_collision = false
+
+[node name="DeskLeg4" type="CSGBox3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 0.36, -1.8)
+size = Vector3(0.04, 0.68, 0.04)
+material = SubResource("Mat_AccentWall")
+use_collision = false
+
+[node name="Wardrobe" type="CSGBox3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.72, 1.05, 1.2)
+size = Vector3(0.55, 2.0, 1.1)
+material = SubResource("Mat_Oak")
+use_collision = true
+
+[node name="ShelfLower" type="CSGBox3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35, 1.35, -1.99)
+size = Vector3(1.05, 0.03, 0.22)
+material = SubResource("Mat_Oak")
+use_collision = false
+
+[node name="ShelfUpper" type="CSGBox3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35, 1.75, -1.99)
+size = Vector3(1.05, 0.03, 0.22)
+material = SubResource("Mat_Oak")
+use_collision = false
+
+[node name="BookStackOnDesk" type="CSGBox3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.55, 0.8, -1.65)
+size = Vector3(0.22, 0.08, 0.16)
+material = SubResource("Mat_Wall")
+use_collision = false
+
+[node name="PhoneOnDesk" type="CSGBox3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15, 0.78, -1.45)
+size = Vector3(0.07, 0.02, 0.14)
+material = SubResource("Mat_AccentWall")
+use_collision = false
+
+[node name="ChargerOnDesk" type="CSGBox3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35, 0.78, -1.42)
+size = Vector3(0.08, 0.03, 0.14)
+material = SubResource("Mat_AccentWall")
+use_collision = false
+
+[node name="ChairSeat" type="CSGBox3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0, 0.38, -0.65)
+size = Vector3(0.46, 0.05, 0.46)
+material = SubResource("Mat_Oak")
+use_collision = false
+
+[node name="ChairBack" type="CSGBox3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22, 0.62, -0.65)
+size = Vector3(0.04, 0.32, 0.44)
+material = SubResource("Mat_Oak")
+use_collision = false
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+
+[node name="Interactables" type="Node3D" parent="."]
+
+[node name="Bag" type="StaticBody3D" parent="Interactables"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.08, 0.25)
+script = ExtResource("4_interact")
+ObjectId = "bag"
+PromptText = "Periksa Tas"
+
+[node name="BagMesh" type="CSGBox3D" parent="Interactables/Bag"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19, 0)
+size = Vector3(0.45, 0.35, 0.22)
+material = SubResource("Mat_Floor")
+
+[node name="Collision" type="CollisionShape3D" parent="Interactables/Bag"]
+shape = SubResource("BoxShape3D_bag")
+
+[node name="Glow" type="OmniLight3D" parent="Interactables/Bag"]
+light_color = Color(0.45, 0.65, 0.85, 1)
+light_energy = 0.5
+omni_range = 1.2
+shadow_enabled = false
+
+[node name="Drawer" type="StaticBody3D" parent="Interactables"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95, 0.48, -1.65)
+script = ExtResource("4_interact")
+ObjectId = "drawer"
+PromptText = "Periksa Laci"
+
+[node name="Collision" type="CollisionShape3D" parent="Interactables/Drawer"]
+shape = SubResource("BoxShape3D_drawer")
+
+[node name="Glow" type="OmniLight3D" parent="Interactables/Drawer"]
+light_color = Color(0.85, 0.75, 0.45, 1)
+light_energy = 0.5
+omni_range = 1.2
+shadow_enabled = false
+
+[node name="Jacket" type="StaticBody3D" parent="Interactables"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 1.3, 1.85)
+script = ExtResource("4_interact")
+ObjectId = "jacket"
+PromptText = "Ambil Jaket & Pergi"
+
+[node name="Collision" type="CollisionShape3D" parent="Interactables/Jacket"]
+shape = SubResource("BoxShape3D_jacket")
+
+[node name="JacketMesh" type="CSGBox3D" parent="Interactables/Jacket"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+size = Vector3(0.4, 0.9, 0.12)
+material = SubResource("Mat_AccentWall")
+
+[node name="Glow" type="OmniLight3D" parent="Interactables/Jacket"]
+light_color = Color(0.95, 0.85, 0.6, 1)
+light_energy = 0.8
+omni_range = 1.8
+visible = false
+shadow_enabled = false
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 1
+
+[node name="Hud" parent="UI" instance=ExtResource("5_hud")]
+
+[node name="ChatNotification" type="PanelContainer" parent="UI"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -220.0
+offset_top = 40.0
+offset_right = 220.0
+offset_bottom = 80.0
+grow_horizontal = 2
+theme = ExtResource("6_theme")
+
+[node name="Margin" type="MarginContainer" parent="UI/ChatNotification"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 6
+
+[node name="Label" type="Label" parent="UI/ChatNotification/Margin"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.85, 0.3, 1)
+theme_override_font_sizes/font_size = 18
+text = "[!] CHAT DARI SALSA — TEKAN [TAB / M] BUKA HP"
+horizontal_alignment = 1
+
+[node name="PrologChatUi" parent="." instance=ExtResource("3_chat")]
+'''
+
+prolog_path.write_text(csx, encoding="utf-8")
+print(f"Wrote fixed CSG PrologRoom -> {prolog_path} ({len(csx)} chars, {csx.count('CSGBox3D')} CSG boxes)")
+
+# Also fix DianaRoomSlice similarly (keep it as showcase but CSG)
+slice_csx = csx.replace("uid://c_prolog_room", "uid://c2_diana_room_slice").replace("[node name=\"PrologRoom\"", "[node name=\"DianaRoomSlice\"").replace('script = ExtResource("1")\n\n', '')
+# Remove Prolog-specific nodes (Interactables, Chat, Player) for slice - keep simple showcase
+# Simplify: keep slice as PrologRoom clone but rename root and add slice lighting
+slice_path.write_text(slice_csx.replace("[node name=\"PrologRoom\"", "[node name=\"DianaRoomSlice\""), encoding="utf-8")
+# For slice, remove ChatNotification/UI/Interactables/Player specifics - just keep showcase
+# We keep it as full CSG clone for now (player + interactables also visible in slice is okay)
+print(f"Wrote DianaRoomSlice CSG clone -> {slice_path}")

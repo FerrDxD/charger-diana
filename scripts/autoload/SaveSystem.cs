@@ -9,7 +9,7 @@ public sealed record SaveData
     public string SavedAtUtc { get; init; } = DateTime.UtcNow.ToString("O");
     public int Chapter { get; init; } = 1;
     public string CheckpointId { get; init; } = "";
-    public float BatteryPercent { get; init; } = 100f;
+    public float BatteryPercent { get; init; } = 35f;
     public string[] Inventory { get; init; } = Array.Empty<string>();
     public string[] SolvedPuzzles { get; init; } = Array.Empty<string>();
     public string[] CollectedNotes { get; init; } = Array.Empty<string>();

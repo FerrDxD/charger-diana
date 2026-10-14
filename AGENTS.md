@@ -6,12 +6,13 @@ Dokumen ini adalah aturan kerja untuk AI agent (Claude Code, Codex, Cursor, dll.
 
 ## 1. Urutan Baca
 
-1. `PRD_V2.md`: apa yang dibuat, milestone, prioritas. **Sumber kebenaran untuk cakupan.** (`PRD.md` v0.3 sudah usang, jangan dipakai.)
+1. `PRD_V3.md` (**aktif**: produksi aset 3D) dan `PRD_V2.md` (game). Keduanya **sumber kebenaran untuk cakupan**. (`PRD.md` v0.3 sudah usang, jangan dipakai.)
 2. `ARCHITECT.md`: bagaimana dibuat, struktur folder, autoload, kontrak antar sistem.
 3. `DESIGN.md`: token visual, komponen, daftar layar, copywriting.
 4. `design_reference/AGENTS.md`: cara memakai screenshot/HTML hasil Stitch (hanya untuk tugas UI).
+5. `ART_BIBLE.md` (dibuat di milestone A3 PRD V3): gaya, skala, budget, palet 3D. Wajib dibaca sebelum tugas aset 3D. Sebelum file itu ada, pakai PRD_V3 bagian 3.
 
-Kalau dokumen bertentangan, urutan prioritasnya: PRD_V2 > ARCHITECT > DESIGN > AGENTS. Jangan diam-diam memilih sendiri. Catat konflik di laporan dan tanyakan.
+Kalau dokumen bertentangan, urutan prioritasnya: PRD_V3 dan PRD_V2 > ARCHITECT > ART_BIBLE > DESIGN > AGENTS. Khusus urusan aset 3D, PRD_V3 menang atas PRD_V2. Jangan diam-diam memilih sendiri. Catat konflik di laporan dan tanyakan.
 
 ## 2. Fakta Proyek
 
@@ -24,10 +25,11 @@ Kalau dokumen bertentangan, urutan prioritasnya: PRD_V2 > ARCHITECT > DESIGN > A
 | Bahasa | Teks dan voice acting **Bahasa Indonesia** |
 | Distribusi | itch.io, "bayar sesukamu" |
 | Audio | Ambience + SFX saja. **Tanpa musik berlagu** |
-| Status | MVP (milestone 1-10 PRD v0.3) diklaim selesai. Sekarang mengerjakan PRD V2 |
+| Status | Milestone Must PRD V2 selesai. Sekarang mengerjakan **PRD V3** (produksi aset 3D: Blender ke Godot) |
+| Developer | **Pemula total di Blender.** Belum pernah memakainya (lihat bagian 13) |
 
 ### Karakter (nama final)
-- **Diana**: MC. Gen Z yang selalu butuh HP dan tidak punya casan lain. Panik beneran, bukan bercanda. Suara: teman developer.
+- **Diana**: MC. Gen Z yang selalu butuh HP dan tidak punya casan lain. Panik beneran, bukan bercanda. Suara: teman developer. Di game hanya terlihat **tangan first-person + HP**, tanpa model badan penuh.
 - **OSIS patroli**: **Cecillia, Adam, Ferdi**. Semua diisi suara developer, dibedakan lewat nada, tempo, dan filter radio HT. Sifat tiap karakter ditetapkan di milestone E5, jadi simpan sebagai data (`OsisProfile`), jangan di-hardcode.
 - **Kuntilanak**: satu-satunya hantu di 1.0. Sumber suaranya belum diputuskan. Pakai placeholder dan jangan mengarang keputusan.
 
@@ -98,6 +100,7 @@ Target: **30 FPS stabil minimum** di Celeron/8 GB pada preset Rendah (45+ ideal)
 
 - Setiap aset eksternal (tekstur, model, SFX, ambience, font) **dicatat sumber + lisensinya** di `assets/ASSETS.md` pada saat dimasukkan. Data ini dipakai layar Kredit.
 - Jangan memasukkan aset tanpa lisensi jelas. Kalau ragu, jangan masukkan, tanyakan.
+- Dari luar hanya **tekstur/material CC0** (dan pustaka animasi CC0 yang disetujui). **Model 3D dibuat sendiri**, tidak boleh memasukkan model eksternal (lihat bagian 13).
 - Font tetap: **VT323** (UI), **Special Elite** (catatan), **Rock Salt** (judul).
 - Rekaman VO: simpan master di luar repo, yang masuk repo hanya OGG mono hasil kompres. Nama berkas mengikuti `ARCHITECT.md` (Audio).
 
@@ -107,6 +110,8 @@ Target: **30 FPS stabil minimum** di Celeron/8 GB pada preset Rendah (45+ ideal)
 - Dokumen saling bertentangan, atau milestone butuh keputusan desain yang belum ada (mis. sumber suara kuntilanak, sifat karakter OSIS).
 - Perubahan menyentuh lebih dari satu sistem inti, mengubah format save, atau menambah autoload.
 - Perlu menghapus fitur MVP yang sudah jalan.
+- Aset 3D yang tidak ada di katalog PRD_V3, pustaka animasi/tekstur baru, perubahan budget, atau upgrade versi Blender/Godot.
+- Developer tampaknya buntu di sebuah teknik Blender. Tawarkan cara yang lebih sederhana sebelum lanjut.
 
 **Putuskan sendiri dan catat di laporan** bila:
 - Detail implementasi kecil yang tidak mengubah perilaku yang terlihat pemain.
@@ -121,6 +126,7 @@ Target: **30 FPS stabil minimum** di Celeron/8 GB pada preset Rendah (45+ ideal)
 - [ ] Untuk UI: checklist UI parity (`PRD_V2.md` 6.5) lulus untuk layar yang disentuh, laporan ditulis.
 - [ ] Uji singkat dilakukan dan hasilnya ditulis (apa yang dites, apa yang belum).
 - [ ] Aset baru tercatat di `assets/ASSETS.md`.
+- [ ] Untuk aset 3D: gerbang kualitas `PRD_V3.md` bagian 9 lulus dan laporan aset (13.3) ditulis.
 - [ ] Tidak ada pekerjaan di luar cakupan milestone.
 
 ## 12. Yang Dilarang
@@ -130,3 +136,38 @@ Target: **30 FPS stabil minimum** di Celeron/8 GB pada preset Rendah (45+ ideal)
 - Menyalin kode HTML/CSS dari Stitch ke dalam game, atau men-"bake" teks ke gambar.
 - Menambah humor di luar Ending B.
 - Menulis ulang sistem yang sudah jalan "supaya lebih bersih" tanpa milestone yang meminta itu.
+- Memasukkan model 3D eksternal, aset di luar katalog, normal map/PBR, tekstur di atas batas ukuran, atau badan penuh Diana.
+- Mengedit `.glb`/`.import` secara manual, atau memasukkan `.blend`/folder `art/` ke repo game.
+
+## 13. Aturan Aset 3D (PRD V3)
+
+### 13.1 Konteks: developer pemula Blender
+- Agent **tidak mengoperasikan Blender**. Peran agent: (a) **memandu** langkah demi langkah, (b) menulis **skrip tooling** (`bpy` untuk validasi/ekspor, C# untuk post-import), (c) mereview hasil (`.glb`, laporan validasi, scene Godot), (d) menyiapkan scene/level di Godot.
+- **Cara memandu:** satu langkah kecil atau daftar bernomor pendek. Sebut **mode** (Object/Edit), **hotkey**, dan **menu**. Jelaskan istilah saat pertama kali dipakai. Beri patokan "harusnya terlihat seperti ini" di tiap checkpoint. Asumsikan laptop tanpa numpad dan memakai touchpad (Emulate Numpad dan Emulate 3 Button Mouse aktif).
+- **Hormati gerbang belajar L0-L6** (`PRD_V3.md` 1.5). Jangan meminta teknik di atas level yang sudah tercapai tanpa mengajarkannya dulu. Satu teknik baru per aset.
+- **Developer yang memodel.** Skrip yang *membuat bentuk aset* secara prosedural hanya dibuat bila diminta eksplisit. Skrip untuk tooling, validasi, dan ekspor boleh.
+- Bila developer buntu, tawarkan versi yang lebih sederhana (lebih sedikit tris, bentuk lebih kotak) sebelum menambah kerumitan.
+
+### 13.2 Aturan aset
+- **Katalog:** hanya aset yang tercantum di `PRD_V3.md` bagian 5 (nanti dikunci di `assets/CATALOG.md`). Aset baru: tanya dulu.
+- **Penamaan:** `{kategori}_{nama}_{variasi}` huruf kecil dengan garis bawah (`furn_desk_student_a`, `char_osis_cecillia`, `item_charger`). Animasi berulang memakai sufiks `-loop`.
+- **Skala dan struktur:** 1 unit Blender = 1 m, grid modul 2 m, transform di-apply, pivot di dasar (props) atau sudut (modular). UV 0-1 pada atlas yang benar.
+- **Budget:** patuhi budget tris per kategori dan texel density di `PRD_V3.md` bagian 3 / `ART_BIBLE.md`. Tekstur: atlas maksimum 256x256 (hero 512x512), filter nearest, tanpa normal map atau PBR.
+- **Sumber luar:** hanya **tekstur/material CC0** dan pustaka animasi CC0 yang disetujui (**Universal Animation Library**). Catat sumber, lisensi, URL, dan tanggal di `assets/ASSETS.md`. Pustaka lain: tanya dan cek lisensi dulu.
+- **Ekspor/impor:** hanya lewat `validate_and_export.py` dan `AssetPostImport.cs`. Jangan edit `.glb`/`.import` manual. `.blend` dan folder `art/` ada di repo terpisah `charger-diana-art`, **tidak** masuk repo game.
+- **Scene turunan:** level merakit scene turunan per aset (`ARCHITECT.md` 20.3), bukan `.glb` langsung. Collision = bentuk sederhana, bukan mesh visual.
+- **Material:** hanya material PS1 + atlas yang sudah ada. Material baru ditambahkan lewat B3, bukan ad-hoc.
+- **Karakter:** satu skeleton humanoid standar. Tiga OSIS berbagi basis, rig, dan animasi, dibedakan lewat mesh/material (`OsisProfile`). Animasi lewat `CharacterAnimator`, skrip AI tidak memanggil `AnimationPlayer` langsung.
+- **Diana:** hanya tangan + HP (`ViewModel`). Jangan menambah model badan penuh.
+- **Performa:** ukur dengan `PerfOverlay` setelah perubahan aset besar. Bila FPS < 30 di preset Rendah (Celeron), **berhenti dan laporkan** sebelum menambah aset. Kurangi detail dulu.
+- **Versi alat** (Blender, Godot) dikunci di `ART_BIBLE.md`. Jangan upgrade tanpa persetujuan dan uji ulang pipeline.
+- Milestone aset dikerjakan **berurutan sesuai kemudahan** (modular, furnitur, props, item, zona, karakter terakhir). Vertical slice (C2) harus lolos sebelum produksi massal.
+
+### 13.3 Laporan aset
+Akhiri setiap tugas aset dengan laporan singkat:
+- **Aset:** id dan kategori
+- **Teknik baru yang dipakai** (supaya developer tahu apa yang baru dipelajari)
+- **Tris / ukuran tekstur / atlas** dan hasil validasi
+- **FPS** (bila diukur) dan zona uji
+- **Sumber & lisensi** bahan eksternal
+- **Belum beres / saran**
